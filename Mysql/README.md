@@ -52,12 +52,11 @@
  ```
 ## 修改列
 
- * e.g. 
- 将表 tel 列改名为 telphone
+ * e.g. 将表 tel 列改名为 telphone
  ```sql
  alter table students change tel telphone char(13) default "-";
  ```
- 将 name 列的数据类型改为 char(16)
+ * e.g. 将 name 列的数据类型改为 char(16)
  ```sql
  alter table students change name name char(16) not null;
  ```
