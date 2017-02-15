@@ -8,6 +8,10 @@
  ```sql
  use samp_db;
  ```
+## 显示该数据库的表
+ ```sql
+ show tables;
+ ```
 ## 创建数据库表
  ```sql
  create table students
