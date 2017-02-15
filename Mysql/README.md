@@ -8,6 +8,10 @@
  ```sql
  use samp_db;
  ```
+## 显示该数据库的表
+ ```sql
+ show tables;
+ ```
 ## 创建数据库表
  ```sql
  create table students
@@ -18,6 +22,22 @@
  age tinyint unsigned not null,
  tel char(13) null default "-"
  );
+ ```
+ * e.g.
+ ```sql
+ CREATE DATABASE IF NOT EXISTS nodesample CHARACTER SET UTF8;
+ 
+ USE nodesample;
+
+ SET FOREIGN_KEY_CHECKS=0;
+
+ DROP TABLE IF EXISTS userinfo;
+ CREATE TABLE userinfo (
+   Id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+   UserName varchar(64) NOT NULL COMMENT '用户名',
+   UserPass varchar(64) NOT NULL COMMENT '用户密码',
+   PRIMARY KEY (Id)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
  ```
 ##  表中插入数据
  ```sql
