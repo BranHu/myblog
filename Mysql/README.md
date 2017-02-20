@@ -9,27 +9,21 @@
     * 当对数据库进行复杂操作时(如对多个表进行Update,Insert,Query,Delete时)，可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
     * 存储过程可以重复使用,可减少数据库开发人员的工作量。
     * 安全性高,可设定只有某此用户才具有对指定存储过程的使用权。
-    
 * 存储过程的种类
-    
-    * 扩展存储过程以XP开头，用来调用操作系统提供的功能
-    以下为引用的内容：
-    ```sql
-　　exec master..xp_cmdshell 'ping 10.8.16.1'
-    ```
-    * 用户自定义的存储过程,这是我们所指的存储过程
-    常用格式
-　　以下为引用的内容：
+    * 用户自定义的存储过程,这是我们所指的存储过程
+    常用格式（以下为引用的内容）：
     ```sql
 　　Create procedure procedue_name
 　　[@parameter data_type][output
 　　[with]{recompile|encryption}
 　　as
 　　sql_statement
-    ```
-    * 以sp开头,用来进行系统的各项设定.取得信息.相关管理工作,
-    如 sp_help就是取得指定对象的相关信息
+    ```
+* 
 ### 2.连接池
+![](connection.png)
+![](pool-connection.png)
+
 ### 3.数据库事务
 ## 二、Mysql语法
 ### 查询/创建数据库
