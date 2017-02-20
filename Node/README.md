@@ -59,6 +59,35 @@
 
 ![](images/test.png)
 
+### 3. 安装express框架
+* 打开客户端，输入命令“npm install express -g”
+![](images/express.png)
+
+* 安装完后，继续输入命令安装express的命令工具“npm install -g express-generator” 
+![](images/express-generator.png)
+
+### 4. 创建express项目
+* 新建一个目录，客户端进入该目录
+* 输入命令“express  nodetest2"，创建了一个express项目，项目名称为nodetest2
+![](images/express-project1.png)
+在生成的package.json中增添依赖的模块
+
+* 安装依赖
+![](images/express-project2.png)
+
+* 测试（*这里也可以直接用sublime打开app.js，然后ctrl+B运行程序*）
+![](images/express-project3.png)
+
+* 在浏览器中可以访问 http://localhost:3000/
+![](images/express-project4.png)
+
+### 5. 将默认的ejs/jade模板更改为nunjucks
+* 原来的模板设置为
+![](images/nunjucks1.png)
+
+* 现在需要在package.json中添加nunjucks依赖后，在app.js文件中的相应代码做如下修改
+![](images/nunjucks3.png)
+
 ## 三、node.js与Mysql的交互
 ## 四、node.js与MongoDB的交互
 ## 五、node.js与Redis交互
