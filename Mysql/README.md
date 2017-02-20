@@ -19,7 +19,7 @@
 　　as
 　　sql_statement
     ```
-* 
+
 ### 2.连接池
 ![](connection.png)
 ![](pool-connection.png)
