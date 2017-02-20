@@ -27,7 +27,7 @@
 
 ### 2. Sublime Node.js开发环境配置
 * 运行Sublime,菜单上找到Tools ——> Build System ——> new Build System
-* 文件中输入
+* 文件中输入以下代码，并另存文件为NodeJs.sublime-build
 
 ```javascript
 {
@@ -37,7 +37,6 @@
 }
 ```
 
-* 保存文件为NodeJs.sublime-build
 * 菜单上找到Tools ---> Build System --->选择 NodeJs
 * 菜单上找到preference --->package settings--->Nodejs--->setting-default 打开文件并 更改成以下代码，主要是**"node_command"**和**"npm_command"**，应找到安装nodejs时路径下对应的文件。
 
