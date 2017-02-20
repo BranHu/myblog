@@ -10,20 +10,17 @@
     * 存储过程可以重复使用,可减少数据库开发人员的工作量。
     * 安全性高,可设定只有某此用户才具有对指定存储过程的使用权。
 * 存储过程的种类
-    * 用户自定义的存储过程,这是我们所指的存储过程
-    常用格式（以下为引用的内容）：
-    ```sql
-　　Create procedure procedue_name
-　　[@parameter data_type][output
-　　[with]{recompile|encryption}
-　　as
-　　sql_statement
-    ```
-
+    * 用户自定义的存储过程,这是我们所指的存储过程<br>常用格式(以下为引用的内容):
+    
+     ```sql
+    Create procedure procedue_name
+    [@parameter data_type][output
+    [with]{recompile|encryption}
+    as
+    sql_statement
+    ```
+    
 ### 2.连接池
-![](connection.png)
-![](pool-connection.png)
-
 ### 3.数据库事务
 ## 二、Mysql语法
 ### 查询/创建数据库
