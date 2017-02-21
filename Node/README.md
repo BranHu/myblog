@@ -60,7 +60,7 @@
 ![](images/test.png)
 
 ### 3. 安装express框架
-* 打开客户端，输入命令“npm install express -g”
+* 打开客户端，输入命令“npm install express -g”<br>
 ![](images/express.png)
 
 * 安装完后，继续输入命令安装express的命令工具“npm install -g express-generator” 
@@ -83,7 +83,7 @@
 ![](images/express-project4.png)
 
 ### 5. 将默认的ejs/jade模板更改为nunjucks
-* 原来的模板设置为
+* 原来的模板设置为<br>
 ![](images/nunjucks1.png)
 
 * 现在需要在package.json中添加nunjucks依赖后，在app.js文件中的相应代码做如下修改
