@@ -15,12 +15,12 @@
 ### 3.词法作用域及闭包
 * JS作用域
     * JS引擎：从头到尾负责整个Javascript程序的编译及执行过程
-    * context
+    * context<br>
     ![](context.png)
     ![](context2.png)
     * 编译器：分词/词法分析（词法单元）、解析/语法分析（抽象语法树AST）、代码生成（将AST转为机器指令）
     * 变量的赋值操作：首先编译器会在当前作用域中声明一个变量，然后在运行时引擎会在作用域中查找该变量，如果能够找到就会对他赋值
-    * for
+    * for<br>
     ![](for.png)
     ![](for-answer.png)
 * 闭包记住两种情况，一个是函数当作值传递，一个是返回函数
@@ -34,7 +34,7 @@
 ### 5.理解异步编程
 
 [http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html](http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html) 
-[http://developer.51cto.com/art/201609/516971.htm](http://developer.51cto.com/art/201609/516971.htm)
+[http://developer.51cto.com/art/201609/516971.htm](http://developer.51cto.com/art/201609/516971.htm)<br>
 [https://segmentfault.com/a/1190000002999668](https://segmentfault.com/a/1190000002999668)
 
 ## 二、事件
@@ -221,5 +221,6 @@ data_json = JSON.parse(data);
     * 用下划线表示
     * 用闭包
 ![](module.png)
+
 ### 2.构造器模式
 ### 3.单例模式
