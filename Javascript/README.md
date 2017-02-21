@@ -106,38 +106,48 @@ console.log(Foo instanceof Foo);//false
         <td>属性</td>
         <td>描述</td>
     </th>
-    <tr>
+    <tbody>
+    <tr>
+    <td>1</td>
         <td>hash</td>
         <td>设置或返回从井号 (#) 开始的 URL（锚）</td>
     </tr>
     <tr>
+    <td>2</td>
         <td>host</td>
         <td>设置或返回主机名和当前 URL 的端口号</td>
     </tr>
     <tr>
+    <td>3</td>
         <td>hostname</td>
         <td>设置或返回当前 URL 的主机名</td>
     </tr>
     <tr>
+    <td>4</td>
         <td>href</td>
         <td>设置或返回完整的 URL</td>
     </tr>
     <tr>
+    <td>5</td>
         <td>port</td>
         <td>设置或返回当前 URL 的端口号</td>
     </tr>
     <tr>
+    <td>6</td>
         <td>pathname</td>
         <td>设置或返回当前 URL 的路径部分</td>
     </tr>
     <tr>
+    <td>7</td>
         <td>protocol</td>
         <td>设置或返回当前 URL 的协议</td>
     </tr>
     <tr>
+    <td>8</td>
         <td>search</td>
         <td>设置或返回从问号 (?) 开始的 URL（查询部分）</td>
     </tr>
+    </tbody>
 </table>
 
 ### 9.substr()
@@ -194,3 +204,22 @@ data_json = JSON.parse(data);
 ```
 ### 17.JSON.stringfy(data_json)
 * 将Json对象转化为字符串
+
+## 四、创建对象的方法
+### 1.工厂模式
+![](factory.png)
+### 2.构造函数模式
+![](constructor.png)
+### 3.原型模式
+![](prototype.png)
+### 4.构造和原型混合使用（这个比较常用），注意constructor
+![](hybrid.png)
+
+## 五、设计模式
+### 1.单体模式、Module模式
+* 最简单的单体实际上是一个对象字面量，创建私有成员的方法有
+    * 用下划线表示
+    * 用闭包
+![](module.png)
+### 2.构造器模式
+### 3.单例模式
