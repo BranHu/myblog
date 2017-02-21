@@ -61,7 +61,7 @@
 
 ### 3. 安装express框架
 * 打开客户端，输入命令“npm install express -g”<br>
-![](images/express.png)
+![](images/express.jpg)
 
 * 安装完后，继续输入命令安装express的命令工具“npm install -g express-generator” 
 ![](images/express-generator.png)
