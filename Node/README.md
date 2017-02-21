@@ -74,7 +74,7 @@
 在生成的package.json中增添依赖的模块
 
 * 安装依赖
-![](images/express-project2.png)
+![](images/express-project2.jpg)
 
 * 测试（*这里也可以直接用sublime打开app.js，然后ctrl+B运行程序*）
 ![](images/express-project3.png)
