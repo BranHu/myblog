@@ -226,3 +226,240 @@ data_json = JSON.parse(data);
 
 ### 2.构造器模式
 ### 3.单例模式
+## 六、正则表达式
+正则表达式要配合正则对象的一些方法和属性来使用，比如exec()、
+### 1.直接量语法
+* /pattern/attributes
+### 2.创建 RegExp 对象的语法
+```javascript
+//第一种
+var a = new RegExp(pattern, attributes)
+//第二种
+var a = /pattern/attributes
+```
+### 3.修饰符
+<table>
+   <th>
+   <td>修饰符</td>
+   <td>描述</td>
+   </th>
+   <tr>
+   <td>1</td>
+   <td>i</td>
+   <td>执行对大小写不敏感的匹配</td>
+   </tr>
+   <tr>
+   <td>2</td>
+   <td>g</td>
+   <td>执行全局匹配</td>
+   </tr>
+   <tr>
+   <td>3</td>
+   <td>m</td>
+   <td>执行多行匹配</td>
+   </tr>
+</table>
+
+### 4.方括号
+<table>
+   <th>
+   <td>表达式</td>
+   <td>描述</td>
+   </th>
+   <tr>
+   <td>1</td>
+   <td>[abc]</td>
+   <td>查找方括号之间的任何字符</td>
+   </tr>
+   <tr>
+   <td>2</td>
+   <td>[^abc]</td>
+   <td>查找任何不在方括号之间的字符</td>
+   </tr>
+   <tr>
+   <td>3</td>
+   <td>[0-9]</td>
+   <td>查找任何从 0 至 9 的数字</td>
+   </tr>
+   <tr>
+   <td>4</td>
+   <td>[a-z]</td>
+   <td>查找任何从小写 a 到小写 z 的字符</td>
+   </tr>
+   <tr>
+   <td>5</td>
+   <td>[A-Z]</td>
+   <td>查找任何从大写 A 到大写 Z 的字符</td>
+   </tr>
+   <tr>
+   <td>6</td>
+   <td>[A-z]</td>
+   <td>查找任何从大写 A 到小写 z 的字符</td>
+   </tr>
+   <tr>
+   <td>7</td>
+   <td>[A-z]</td>
+   <td>查找任何从大写 A 到小写 z 的字符</td>
+   </tr>
+   <tr>
+   <td>8</td>
+   <td>[adgk]</td>
+   <td>查找给定集合内的任何字符</td>
+   </tr>
+   <tr>
+   <td>9</td>
+   <td>[^adgk]</td>
+   <td>查找给定集合外的任何字符</td>
+   </tr>
+   <tr>
+   <td>10</td>
+   <td>(red|blue|green)</td>
+   <td>查找任何指定的项</td>
+   </tr>
+</table>
+
+### 5.元字符
+<table>
+   <th>
+   <td>元字符</td>
+   <td>描述</td>
+   </th>
+   <tr>
+   <td>1</td>
+   <td>.</td>
+   <td>查找单个字符，除了换行和行结束符</td>
+   </tr>
+   <tr>
+   <td>2</td>
+   <td>\w</td>
+   <td>查找单词字符</td>
+   </tr>
+   <tr>
+   <td>3</td>
+   <td>\W</td>
+   <td>查找非单词字符</td>
+   </tr>
+   <tr>
+   <td>4</td>
+   <td>\d</td>
+   <td>查找数字</td>
+   </tr>
+   <tr>
+   <td>5</td>
+   <td>\D</td>
+   <td>查找非数字</td>
+   </tr>
+   <tr>
+   <td>6</td>
+   <td>\s</td>
+   <td>查找空白字符</td>
+   </tr>
+   <tr>
+   <td>7</td>
+   <td>\S</td>
+   <td>查找非空白字符</td>
+   </tr>
+   <tr>
+   <td>8</td>
+   <td>\b</td>
+   <td>匹配单词边界</td>
+   </tr>
+   <tr>
+   <td>9</td>
+   <td>\B</td>
+   <td>匹配非单词边界</td>
+   </tr>
+   <tr>
+   <td>10</td>
+   <td>\0</td>
+   <td>查找 NUL 字符</td>
+   </tr>
+   <tr>
+   <td>11</td>
+   <td>\n</td>
+   <td>查找换行符。</td>
+   </tr>
+   <tr>
+   <td>12</td>
+   <td>\f</td>
+   <td>查找换页符</td>
+   </tr>
+   <tr>
+   <td>13</td>
+   <td>\r</td>
+   <td>查找回车符</td>
+   </tr>
+   <tr>
+   <td>14</td>
+   <td>\xxx</td>
+   <td>查找以八进制数 xxx 规定的字符</td>
+   </tr>
+   <tr>
+   <td>15</td>
+   <td>\xdd</td>
+   <td>查找以十六进制数 dd 规定的字符</td>
+   </tr>
+   <tr>
+   <td>16</td>
+   <td>\uxxxx</td>
+   <td>查找以十六进制数 xxxx 规定的 Unicode 字符</td>
+   </tr>
+</table>
+
+### 6.量词
+<table>
+   <th>
+   <td>量词</td>
+   <td>描述</td>
+   </th>
+   <tr>
+   <td>1</td>
+   <td>n+</td>
+   <td>匹配任何包含至少一个 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>2</td>
+   <td>n*</td>
+   <td>匹配任何包含零个或多个 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>3</td>
+   <td>n?</td>
+   <td>匹配任何包含零个或一个 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>4</td>
+   <td>n{X}</td>
+   <td>匹配包含 X 个 n 的序列的字符串</td>
+   </tr>
+   <tr>
+   <td>5</td>
+   <td>n{X,Y}</td>
+   <td>匹配包含 X 至 Y 个 n 的序列的字符串</td>
+   </tr>
+   <tr>
+   <td>6</td>
+   <td>n{X,}</td>
+   <td>匹配包含至少 X 个 n 的序列的字符串</td>
+   </tr>
+   <tr>
+   <td>7</td>
+   <td>n$</td>
+   <td>匹配任何结尾为 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>8</td>
+   <td>^n</td>
+   <td>匹配任何开头为 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>9</td>
+   <td>?=n</td>
+   <td>匹配任何其后紧接指定字符串 n 的字符串</td>
+   </tr>
+   <tr>
+   <td>10</td>
+   <td>?!n</td>
+   <td>匹配任何其后没紧接指定字符串 n 的字符串。</td>
+   </tr>
+</table>
