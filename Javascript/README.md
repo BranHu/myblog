@@ -230,6 +230,7 @@ data_json = JSON.parse(data);
 正则表达式要配合正则对象的一些方法和属性来使用，比如exec()、
 ### 1.直接量语法
 * /pattern/attributes
+
 ### 2.创建 RegExp 对象的语法
 ```javascript
 //第一种
