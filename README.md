@@ -11,3 +11,4 @@
 * [Html5](https://github.com/BranHu/myblog/tree/master/Html5)
 * [Python](https://github.com/BranHu/myblog/tree/master/Python)
 * [HTTP](https://github.com/BranHu/myblog/tree/master/HTTP)
+* [ES6](https://github.com/BranHu/myblog/tree/master/ES6)
