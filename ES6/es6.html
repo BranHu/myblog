@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	//1.JS的继承
+	//JS引入了class,extends,constructor,super等关键字
+	//class 中不再需要用function关键字了
+	class Point {
+			//constructor 是类的默认方法，通过new命令生成对象实例时，自动调用该方法
+			//一个类必须有contructor方法，如果没有显示定义，一个空的contructor方法会被
+			//默认添加
+			constructor(x,y,z) {
+				this.x = x ;
+				this.y = y ;
+				this.z = z ;
+			}
+
+			toPosition () {
+				return this.x*this.x + this.y*this.y + this.z*this.z;
+			}
+
+			isValue () {
+
+			}
+		}
+
+	var aPoint = new Point(1,2,3);
+	var pos = aPoint.toPosition();    //14
+
+	//2、js旧有的构造函数的prototype属性，在ES6的类上继续存在。事实上，类的所有方法都定义在类的prototype属性上
+	//上面的代码等同于(本质)
+	Point.prototype = {
+		toPosition(){},
+		toValue(){}
+	};
+
+	//3.extends继承
+	//这里不管constructo还是类上的方法，都有super关键字。它表示父类的构造函数，用来新建父类的this对象
+	//子类必须在contructor方法中调用super方法，
+	class ColorPoint extends Point {
+			constructor(x,y,z,color) {
+				super(x,y,z);
+				this.color = color;
+			}
+			toPosition() {
+				return this.color + '' + super.toPosition();
+			}
+	}
+
+	//4.extends的继承目标
+	//extend关键字后面可以跟多种类型的值
+	class B extends A {}
+
+	class A extends Object {
+
+	}
+
+	A.__proto__ === Object;    //true
+	A.prototype.__proto__ === Object.prototype;    //true
+
+</script>
+</html>
