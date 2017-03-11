@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		/*****************          1.伪类             ***********/
+/*		::before,::after一般用于画一些小图案，如分割线或者分割点等,作为元素的第一个子元素.
+		主要是content,content可以是符号,也可以为空,还可以是一句话*/
+/*		div.test::before {
+			content: "[";
+			color: black;
+		}
+		div.test::after {
+			content: "]";
+			color: red;
+		}*/
+/*		:hover 一般用在鼠标移入显示某个隐藏元素,
+		:focus 一般用在input聚焦后显示样式,
+		:invalid,valid 在输入合法及不合法的字符后显示样式,适合html5中新增的url,email等元素,
+		:active 一般会用在a,button标签上,按住鼠标的时候会显示样式,
+		:link 主要用在a标签,默认的链接的样式,
+		:visit 主要用在a标签,在a标签点击访问后显示样式,
+		:checked 主要用于<input type="radio">, <input type="checkbox">,<option>选择后显示样式
+		input.input-text:focus {
+			border: 2px solid red;
+		}
+		input:invalid {
+			border: 2px solid yellow;
+		}
+		span.test a:active {
+			color: red;
+			font-weight: bold;
+		}
+		input[type="radio"]:checked {
+		  margin-left: 25px;
+		}
+*/
+		/*****************          2.自定义radio             ***********/
+		label {
+		    display: inline-block;
+		    cursor: pointer;
+		    position: relative;
+		    padding-left: 25px;
+		    margin-right: 15px;
+		    font-size: 13px;
+		}
+ 
+		label:before {
+		    content: "";
+		    display: inline-block;
+		    width: 16px;
+		    height: 16px;
+		    margin-right: 10px;
+		    position: absolute;
+		    left: 0;
+		    bottom: 1px;
+		    background-color: #aaa;
+		    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+		}
+		 
+		.radio label:before {
+		    border-radius: 8px;
+		}
+		 
+		 
+		input[type=radio] {
+		    display: none;
+		}
+		 
+		input[type=radio]:checked + label:before {
+		    content: "\2022";
+		    color: #f3f3f3;
+		    font-size: 30px;
+		    text-align: center;
+		    line-height: 18px;
+		}
+
+	</style>
+</head>
+<body>
+	<!-- 1.伪类 
+ 	<div class="test">这是一句话</div>
+	<input type="text" name="" class="input-text">
+	<input type="url" />
+	<input type="email"/>
+	<span class="test"><a href="">这个是来测试:active的</a></span>
+	<input type="radio" class="radio"> 
+	-->
+	<!-- 2.自定义radio -->
+	<div class="radio">
+    	<input id="male" type="radio" name="gender" value="male">
+    	<label for="male">Male</label>
+    	<input id="female" type="radio" name="gender" value="female">
+    	<label for="female">Female</label>
+	</div>
+
+</body>
+</html>
