@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+		**1.es6的块级作用域中声明函数。（chrome已支持了es6了，因为按道理来讲第一个
+		**运行函数内的结果应该是I am inside）
+		**在es6浏览器环境中有如下规定：
+		***（1）允许在块级作用域内声明函数。
+		***（2）函数声明类似于var，即会提升到全局作用域或函数作用域的头部。
+		***（3）同时，函数声明还会提升到所在的块级作用域的头部。
+		**建议：如果确实需要，尽量写成函数表达式，而不是函数声明语句。
+		*/
+		// function f() { console.log('I am outside!'); }
+
+		// (function () {
+		//   //相当于在这里有一个var f = undefined，对应上面的第二条
+		//   if (false) {
+		//     // 在块级作用域中，重复声明一次函数f
+		//     function f() { console.log('I am inside!'); }
+		//   }
+
+		//   f();
+		// }());
+		//Uncaught TypeError: f is not a function
+
+		// (function () {
+		//   function f() { console.log('I am inside!'); }
+		//   if (false) {
+		//   }
+		//   f();
+		// }());
+		//'I am inside!'
+
+		/*
+		**2.es6的顶层对象。确定了chrom支持es6语法
+		*/
+		// var a = 1;
+		// // 如果在Node的REPL环境，可以写成global.a
+		// // 或者采用通用方法，写成this.a
+		// console.log(window.a); // 1
+
+		// let b = 1;
+		// console.log(window.b,b); //undefined 1
+		(function(){
+			var i = "字符串模板"
+			document.body.innerHTML = `<div>${i}</div>`;
+		})()
+		
+	</script>
+</body>
+</html>
