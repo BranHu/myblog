@@ -16,34 +16,36 @@
 	**createLoginLayer赋值一个函数，那么在step1调用时，loginLayer为返回的函数，
 	**而不是div
 	*/
-		var createLoginLayer = (function(){
-			var a=0;
-			var div;
-			return function(){
-				if(!div){
-					div = document.createElement('div');
-					div.innerHTML = 'i am register';
-					div.style.display = 'none';
-					document.body.appendChild(div);
-				}
-				return div;
+	var createLoginLayer = (function(){
+		var a=0;
+		var div;
+		return function(){
+			if(!div){
+				div = document.createElement('div');
+				div.innerHTML = 'i am register';
+				div.style.display = 'none';
+				document.body.appendChild(div);
 			}
-		})();
-
-		document.getElementById('loginBtn').onclick = function(){
-			var loginLayer = createLoginLayer();   //step1
-			loginLayer.style.display = 'block';
+			return div;
 		}
+	})();
+
+	document.getElementById('loginBtn').onclick = function(){
+		var loginLayer = createLoginLayer();   //step1
+		loginLayer.style.display = 'block';
+	}
 
 	/*通用的单例模式
-	**
+	**apply和call的用法。出现二者即前面的函数就在此处进行了调用
 	*/
 	var getSingle = function(fn){
 		var result;
 		return function(){
+			//这里是一个类似于一个选择符，若result为false则return后者，result为true，则返回前者
 			return result || (result = fn.apply(this,arguments));
 		}
 	}
+
 	</script>
 </body>
 </html>
