@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="loginBtn">Login</div>
+	<script type="text/javascript">
+	/*普通的单例模式
+	**解释：这里充分利用了闭包和高阶函数的特点。
+	**1.通过高阶函数，在返回的函数内引用了div，则div会一直在那，不会被内存机制回收，
+	**因此就可以实现单例。
+	**2.因为这里有两个return，因此必须采用匿名函数自执行，则变量createLoginLayer，
+	**即为第二个return的div，也就是闭包形成的div。如果不执行匿名函数，而是给变量
+	**createLoginLayer赋值一个函数，那么在step1调用时，loginLayer为返回的函数，
+	**而不是div
+	*/
+		var createLoginLayer = (function(){
+			var a=0;
+			var div;
+			return function(){
+				if(!div){
+					div = document.createElement('div');
+					div.innerHTML = 'i am register';
+					div.style.display = 'none';
+					document.body.appendChild(div);
+				}
+				return div;
+			}
+		})();
+
+		document.getElementById('loginBtn').onclick = function(){
+			var loginLayer = createLoginLayer();   //step1
+			loginLayer.style.display = 'block';
+		}
+
+	/*通用的单例模式
+	**
+	*/
+	var getSingle = function(fn){
+		var result;
+		return function(){
+			return result || (result = fn.apply(this,arguments));
+		}
+	}
+	</script>
+</body>
+</html>
