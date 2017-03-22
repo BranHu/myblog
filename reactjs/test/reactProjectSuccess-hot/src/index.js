@@ -6,6 +6,7 @@ import { AppContainer } from 'react-hot-loader';
 
 import App from './components/App';
 
+//declare a function render()
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
@@ -15,6 +16,7 @@ const render = (Component) => {
   );
 };
 
+//invoke the render()
 render(App);
 
 // Hot Module Replacement API
