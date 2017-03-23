@@ -31,6 +31,7 @@ module.exports = {
 
   devtool: 'inline-source-map',
 
+  //这里设置服务器访问的html文件，为相对路径下的dist文件内的html
   devServer: {
     hot: true,
     // enable HMR on the server
