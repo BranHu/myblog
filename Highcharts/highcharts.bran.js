@@ -6,17 +6,21 @@
  * License: www.highcharts.com/license
  */
 'use strict';
+//整个是一个IIFE，所有的代码均在这个IIFE中，入参root传递进来的是window,
+//入参factory传递进来的是function(win){...},它的返回值是Highcharts
 (function(root, factory) {
     if (typeof module === 'object' && module.exports) {
+        //如果是node环境的话，输出的是Highcharts
         module.exports = root.document ?
             factory(root) :
             factory;
     } else {
+        //如果是非node环境，将Highcharts作为window的属性，即全局变量
         root.Highcharts = factory(root);
     }
 }(typeof window !== 'undefined' ? window : this, function(win) {
-    // hightcharts中运用了多个IIFE
-    // 声明Highcharts变量，检测window全局变量是否存在相同的Hightcharts，同时给Highcharts初始化赋值
+    // hightcharts中运用了多个IIFE，如(function(H){...})(Highcharts)
+    // 此处运用函数表达式的方式声明Highcharts变量，函数立即执行，是一个IIFE，同时给Highcharts初始化赋值
     var Highcharts = (function() {
         /**
          * (c) 2010-2017 Torstein Honsi
@@ -27,6 +31,7 @@
         var win = window,
             doc = win.document;
 
+        //创建svg对象
         var SVG_NS = 'http://www.w3.org/2000/svg',
             userAgent = (win.navigator && win.navigator.userAgent) || '',
             svg = doc && doc.createElementNS && !!doc.createElementNS(SVG_NS, 'svg').createSVGRect,
@@ -35,6 +40,7 @@
             isFirefox = /Firefox/.test(userAgent),
             hasBidiBug = isFirefox && parseInt(userAgent.split('Firefox/')[1], 10) < 4; // issue #38
 
+        //检测window全局变量是否存在相同的Hightcharts
         var Highcharts = win.Highcharts ? win.Highcharts.error(16, true) : {
             product: 'Highcharts',
             version: '5.0.10',
@@ -48,6 +54,7 @@
             isTouchDevice: /(Mobile|Android|Windows Phone)/.test(userAgent),
             SVG_NS: SVG_NS,
             chartCount: 0,
+            //seriesTypes与后面的series有关，可知series是一个对象
             seriesTypes: {},
             symbolSizes: {},
             svg: svg,
@@ -2295,7 +2302,7 @@
         };
     }(Highcharts));
 
-    //IIFE---3.
+    //IIFE---3.SVGElement
     (function(H) {
         /**
          * (c) 2010-2017 Torstein Honsi
@@ -8629,6 +8636,7 @@
     }(Highcharts));
 
     //IIFE---8.
+    //Axis(坐标)属性和方法
     (function(H) {
         /**
          * (c) 2010-2017 Torstein Honsi
@@ -10163,7 +10171,6 @@
                     // record old values to decide whether a rescale is necessary later on (#540)
                     axis.oldUserMin = axis.userMin;
                     axis.oldUserMax = axis.userMax;
-
                     // Mark as dirty if it is not already set to dirty and extremes have changed. #595.
                     if (!axis.isDirty) {
                         axis.isDirty = isDirtyAxisLength || axis.min !== axis.oldMin || axis.max !== axis.oldMax;
@@ -10201,7 +10208,6 @@
 
                 // Fire the event
                 fireEvent(axis, 'setExtremes', eventArguments, function() { // the default event handler
-
                     axis.userMin = newMin;
                     axis.userMax = newMax;
                     axis.eventArgs = eventArguments;
@@ -12439,6 +12445,7 @@
     }(Highcharts));
 
     //IIFE---11.
+    //pointer鼠标事件
     (function(H) {
         /**
          * (c) 2010-2017 Torstein Honsi
@@ -13135,7 +13142,6 @@
             onDocumentMouseMove: function(e) {
                 var chart = this.chart,
                     chartPosition = this.chartPosition;
-
                 e = this.normalize(e, chartPosition);
 
                 // If we're outside, hide the tooltip
@@ -14775,6 +14781,7 @@
     }(Highcharts));
 
     //IIFE---15.
+    //chart的对象属性和方法
     (function(H) {
         /**
          * (c) 2010-2017 Torstein Honsi
@@ -14844,10 +14851,12 @@
              * @returns {Array} Arguments without renderTo
              */
             getArgs: function() {
+                //将一个类数组（Array-like）对象/集合转换成一个数组。
+                //下述代码中的 arguments 就是一个类数组对象。
                 var args = [].slice.call(arguments);
-
                 // Remove the optional first argument, renderTo, and
                 // set it on this.
+                //即将div的id名移走了
                 if (isString(args[0]) || args[0].nodeName) {
                     this.renderTo = args.shift();
                 }
@@ -14857,8 +14866,8 @@
             /**
              * Initialize the chart
              */
+            //userOptions是在html中初始化插入highcharts图形时的chart、title、xAxis等属性
             init: function(userOptions, callback) {
-
                 // Handle regular options
                 var options,
                     seriesOptions = userOptions.series; // skip merging data points to increase performance
@@ -15078,7 +15087,6 @@
                 if (redrawLegend && legend.options.enabled) { // series or pie points are added or removed
                     // draw legend graphics
                     legend.render();
-
                     chart.isDirtyLegend = false;
                 }
 
@@ -15108,7 +15116,6 @@
 
                     // redraw axes
                     each(axes, function(axis) {
-
                         // Fire 'afterSetExtremes' only if extremes are set
                         var key = axis.min + ',' + axis.max;
                         if (axis.extKey !== key) { // #821, #4452
@@ -23773,5 +23780,6 @@
             return ret;
         };
     }(Highcharts));
+
     return Highcharts
 }));
