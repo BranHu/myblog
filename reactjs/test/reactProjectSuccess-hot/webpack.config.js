@@ -24,7 +24,7 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
 
     publicPath: '/'
-    // necessary for HMR to know where to load the hot update chunks
+      // necessary for HMR to know where to load the hot update chunks
   },
 
   context: resolve(__dirname, 'src'),
@@ -40,27 +40,24 @@ module.exports = {
     // match the output path
 
     publicPath: '/'
-    // match the output `publicPath`
+      // match the output `publicPath`
   },
 
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: [
-          'babel-loader',
-        ],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader?modules',
-          'postcss-loader',
-        ],
-      },
-    ],
+    rules: [{
+      test: /\.js$/,
+      use: [
+        'babel-loader',
+      ],
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader?modules',
+        'postcss-loader',
+      ],
+    }, ],
   },
 
   plugins: [
