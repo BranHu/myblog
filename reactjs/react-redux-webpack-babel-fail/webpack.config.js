@@ -4,7 +4,7 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 //常用路径
 var ROOT_PATH = resolve(__dirname);
 var APP_PATH = resolve(ROOT_PATH, 'app');
-var BUILD_PATH = resolve(ROOT_PATH, 'build');
+var BUILD_PATH = resolve(ROOT_PATH, 'dist');
 
 module.exports = {
 	//改动1.增加webpack的context属性
@@ -26,7 +26,7 @@ module.exports = {
 	    // bundle the client for hot reloading
 	    // only- means to only hot reload for successful updates
 
-	    './app.js'
+	    './index.js'
 	    // the entry point of our app
     ],
 	output: {
@@ -100,16 +100,16 @@ module.exports = {
 
 	////改动6.配置plugin
 	plugins: [
-		new HtmlwebpackPlugin({
-			title: 'My first react app'
-		}),
+		// new HtmlwebpackPlugin({
+		// 	title: 'My first react app'
+		// }),
 		new webpack.HotModuleReplacementPlugin(),
 
 		new webpack.NamedModulesPlugin()
 	],
 
 	//在js中import加载JSX扩展名的脚本
-	resolve: {
-		extensions: [".js", ".jsx"]
-	}
+	// resolve: {
+	// 	extensions: [".js", ".jsx"]
+	// }
 }
