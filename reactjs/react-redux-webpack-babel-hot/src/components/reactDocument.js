@@ -77,6 +77,8 @@ class SearchBar extends React.Component {
     this.props.onInStockInput(e.target.checked);
   }
 
+  //onChange--->this.handleFilterTextInputChange--->this.props.onFilterTextInput()--->setState()
+  //render()中的this也是后面的<SearchBar />
   render() {
     return (
       <form>
