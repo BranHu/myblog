@@ -1,6 +1,17 @@
 # JavaScript
+
 [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference)
-## 一、基础知识
+
+## 目录
+
+- [基础知识](#基础知识)
+- [事件](#事件)
+- [方法](#方法)
+- [创建对象的方法](#创建对象的方法)
+- [设计模式](#设计模式)
+- [正则表达式](#正则表达式)
+
+## 基础知识
 ### 1.undefined
 * 变量被声明了，但没有赋值时，就等于undefined
 * 调用函数时，应该提供的参数没有提供，该参数等于undefined
@@ -37,7 +48,7 @@
 [http://developer.51cto.com/art/201609/516971.htm](http://developer.51cto.com/art/201609/516971.htm)<br>
 [https://segmentfault.com/a/1190000002999668](https://segmentfault.com/a/1190000002999668)
 
-## 二、事件
+## 事件
 ### 1. onresize()
 * onresize 事件会在窗口或框架被调整大小时发生。
 
@@ -48,7 +59,7 @@
 ### 3.事件可绑定多个函数
 * 例如：onclick=“a();b();c()”,绑定的函数按顺序执行
 
-## 三、方法
+## 方法
 ### 1. Window.open()
 * open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口
 * window.open(URL,name,features,replace)
@@ -205,7 +216,8 @@ data_json = JSON.parse(data);
 ### 17.JSON.stringfy(data_json)
 * 将Json对象转化为字符串
 
-## 四、创建对象的方法
+## 创建对象的方法
+
 ### 1.工厂模式
 ![](factory.png)
 ### 2.构造函数模式
@@ -215,7 +227,8 @@ data_json = JSON.parse(data);
 ### 4.构造和原型混合使用（这个比较常用），注意constructor
 ![](hybrid.png)
 
-## 五、设计模式
+## 设计模式
+
 ### 1.单体模式、Module模式
 
 * 最简单的单体实际上是一个对象字面量，创建私有成员的方法有
@@ -226,8 +239,10 @@ data_json = JSON.parse(data);
 
 ### 2.构造器模式
 ### 3.单例模式
-## 六、正则表达式
-正则表达式要配合正则对象的一些方法和属性来使用，比如exec()、
+
+## 正则表达式
+正则表达式要配合正则对象的一些方法和属性来使用，比如exec()
+
 ### 1.直接量语法
 * /pattern/attributes
 
