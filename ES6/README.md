@@ -24,6 +24,9 @@
         console.log('id:', this.id);
       }, 100);
     }
+    ```
+    ```
+    //ES5
     function foo() {
       var _this = this; 
 
