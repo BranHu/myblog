@@ -37,12 +37,6 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 * window窗口元素引发的重叠
     * 浏览器解析页面时，先判断元素的类型：窗口元素优于非窗口元素显示（也就是窗口元素会覆盖在其它非窗口元素之上，同为非窗口类型才能在激活z-index属性控制堆叠顺序。
 
-**Flash元素属于window窗口元素**<br>
-所以如果页面上flash元素和其他元素发生重叠，需要先将flash嵌入的wmode属性的window（窗口，默认的会造成上面所说的问题）改为非窗口模式：opaque（非窗口不透明）或者 transparent（非窗口透明）。<br>
-
-**ie6下select属于window类型控件**<br>
-同理，它也产生窗口元素的遮挡问题。解决方法使用iframe（原理：ie6下普通元素无法覆盖select，iframe可以覆盖select，普通元素可以覆盖iframe）/用div模拟实现select的效果。我一般会为被select遮挡的div在内部追加（appendChild）一个空的子iframe，设置position:absolute脱离文档流空间、width:100%;height:100%;覆盖整个父div、z-index:-1;确保值要小于父div的z-index值让父div覆盖显示在iframe上面，借助这个iframe来覆盖select。
-
 ### 3.浅说position定位及z-index使用
 
 * 使用前提
