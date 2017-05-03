@@ -16,9 +16,8 @@
       //核心代码都是以如下形式
       (functioin(H){...}(Highchart))
       return Highchart
-  }))```
-
-
+  }))
+  ```
 * 核心代码都是通过IIFE来构建的，有模块的思想。而且仅输出一个Highchart全局变量，其他的各类对象都构建在Highchart下面作为他的属性
 
   ```javascript
