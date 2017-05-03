@@ -9,7 +9,7 @@
 - [generator](#generator)
 - [class](#class类)
 
-## 箭头函数 =>
+## 箭头函数
 
 #### 1.箭头函数中的this
 
@@ -23,7 +23,7 @@
 
 #### 4.不可以使用yield命令，因此箭头函数不能用作Generator函数
 
-## 模板字符串 \` \`
+## 模板字符串
 
 #### 1.标签内写入事件
 
@@ -40,6 +40,7 @@ var html = `<div onclick='click(event,"${this.attr}")'></div>`
 #### 5.模板字符串之中还能调用函数(函数要有返回值)
 
 ## class
+
 详见 [es6](https://github.com/BranHu/myblog/blob/master/ES6/es6.html) 和 [es6(1)](https://github.com/BranHu/myblog/blob/master/ES6/es6(1).html)
 
 
