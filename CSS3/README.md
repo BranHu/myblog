@@ -119,4 +119,4 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
 ### 2.自定义单选框
 
-* 该样式用到了`<label>`的`for`属性，同时也运用到了伪类`::before`和`::after`,以及`:checked`选择器。详见[css3.html](https://github.com/BranHu/myblog/edit/master/CSS3/css3.html)
+* 该样式用到了`<label>`的`for`属性，同时也运用到了伪类`::before`和`::after`,以及`:checked`选择器。详见[css3.html](https://github.com/BranHu/myblog/blob/master/CSS3/css3.html)
