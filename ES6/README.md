@@ -29,7 +29,6 @@
     //ES5
     function foo() {
       var _this = this; 
-
       setTimeout(function () {
         console.log('id:', _this.id);
       }, 100);
