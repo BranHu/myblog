@@ -109,12 +109,9 @@ const TodoAction = {
 
 ### TodoStore
 
-* Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用---AppDispatcher.register()
-
-    * 创建一个todoStore对象，其包含需要处理的数据和方法(其实是第二部分的回调函数)，这一部分是为了第二部分做准备的，方便方法调用。这里
-    运用了Object.assign和node.js中的EventEmitter,让todoStore继承EventEmitter.prototype，因此就能使用on和emit等方法来监听和触发事件。
-    
-    * 调用Dispatcher的register()方法，它可以注册不同事件的处理回调，并且在回调中对store进行处理。主要就是一个switch
+* Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用AppDispatcher.register()
+    * 创建一个todoStore对象，其包含需要处理的数据和方法(其实是第二部分的回调函数)，这一部分是为了第二部分做准备的，方便方法调用。这里运用了Object.assign和node.js中的EventEmitter,让todoStore继承EventEmitter.prototype，因此就能使用on和emit等方法来监听和触发事件。
+    * 调用Dispatcher的register()方法，它可以注册不同事件的处理回调，并且在回调中对store进行处理。主要就是一个switch
 
 ```javascript
 //第一部分 TodoStore 对象
@@ -122,7 +119,6 @@ import AppDispatcher from './dispatcher/AppDispatcher';
 import { EventEmitter } from 'event';
 
 const TodoStore = assign({}, EventEmitter.prototype, {
-
   _todos: [];  //这里数组和json都可以，只是一个存放数据的容器
   
   // Getter 方法暴露给外部获取 Store 数据
@@ -132,9 +128,8 @@ const TodoStore = assign({}, EventEmitter.prototype, {
   
   // 暴露给外部处理 Store 数据的方法
   addTodo(todo) {
-		this.todos.push(todo);
-	}
-  
+    this.todos.push(todo);
+  }
   
   // 触发 change 事件
   emitChange: function() {
@@ -154,20 +149,17 @@ const TodoStore = assign({}, EventEmitter.prototype, {
 //第二部分调用register()方法
 AppDispatcher.register(function(action) {
   var text;
-
   switch(action.actionType) {
     case TODO_CREATE:
       TodoStore.addTodo(action.todo);
       TodoStore.emitChange();
       break;
-
     case DELETE_TODO:
       TodoStore.deleteTodo(action.id);
       TodoStore.emitChange();
       break;
   }
 });
-
 ```
 
 ### View
