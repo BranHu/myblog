@@ -13,10 +13,7 @@
   - [核心思想](#核心思想)
   - [解决的问题和优缺点](#解决的问题和优缺点)
   - [项目构建的文档结构](#项目构建的文档结构)
-  - [AppDispatcher](#AppDispatcher)
-  - [TodoAction](#TodoAction)
-  - [TodoStore](#TodoStore)
-  - [View](#View)
+  - [abc](#abc)
   
 ## React
 
@@ -74,7 +71,7 @@ Flux 的最大特点，就是数据的"单向流动"。任何相邻的部分都�
 * stores/
     * TodoStore.js
 
-### AppDispatcher
+### abc
 
 * 一般情况下是 new 一个 Dispatcher 对象并输出。Dispatcher 是flux内置的模块，由facebook官方实现。通过它来串联其他的部分
 
