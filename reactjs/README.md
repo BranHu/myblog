@@ -10,10 +10,10 @@
   - [其他](#其他)
   
 - Flux
-  - [核心思想](#核心思想)
+  - [核心思想](#核心思想)
   - [解决的问题和优缺点](#解决的问题和优缺点)
   - [项目构建的文档结构](#项目构建的文档结构)
-  - [Dispatcher](#Dispatcher)
+  - [AppDispatcher](#AppDispatcher)
   - [Action](#Action)
   - [Store](#Store)
   - [View](#View)
@@ -70,10 +70,104 @@ Flux 的最大特点，就是数据的"单向流动"。任何相邻的部分都�
 * stores/
     * TodoStore.js
 
-### Dispatcher
+### AppDispatcher
 
-### Action
+* 一般情况下是 new 一个 Dispatcher 对象并输出。Dispatcher 是flux内置的模块，由facebook官方实现。通过它来串联其他的部分
 
-### Store
+```javascript
+import { Dispatcher } from 'flux';
+export default new Dispatcher();
+```
+
+### TodoAction
+
+* 每个Action都是一个对象，通过定义一些 action creator 方法来组成。这些action creator方法都**封装了AppDispatcher对象的dispatch()方法**，dispatch()的入参是一个对象，包含一个actionType属性（说明动作的类型）和一些其他属性（用来传递数据）。Action中的 action creator 方法暴露给外部调用（View层的用户交互触发，或服务端接口调用来创建动作,），通过 dispatcher 分发对应的动作。
+
+```javascript
+import AppDispatcher from './dispatcher/AppDispatcher';
+
+const TodoAction = {
+	create(todo) {
+		AppDispatcher.dispatch({
+			actionType: 'CREATE_TODO',
+			todo,
+			text,
+			value
+		});
+	},
+
+	delete(id) {
+		AppDispatcher.dispatch({
+			actionType: 'DELETE_TODO',
+			id,
+			name,
+			menu
+		})
+	}
+}
+```
+
+### TodoStore
+
+* Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用---AppDispatcher.register()
+
+    * 创建一个todoStore对象，其包含需要处理的数据和方法(其实是第二部分的回调函数)，这一部分是为了第二部分做准备的，方便方法调用。这里
+    运用了Object.assign和node.js中的EventEmitter,让todoStore继承EventEmitter.prototype，因此就能使用on和emit等方法来监听和触发事件。
+    
+    * 调用Dispatcher的register()方法，它可以注册不同事件的处理回调，并且在回调中对store进行处理。主要就是一个switch
+
+```javascript
+//第一部分 TodoStore 对象
+import AppDispatcher from './dispatcher/AppDispatcher';
+import { EventEmitter } from 'event';
+
+const TodoStore = assign({}, EventEmitter.prototype, {
+
+  _todos: [];  //这里数组和json都可以，只是一个存放数据的容器
+  
+  // Getter 方法暴露给外部获取 Store 数据
+  getAll: function() {
+    return _todos;
+  },
+  
+  // 暴露给外部处理 Store 数据的方法
+  addTodo(todo) {
+		this.todos.push(todo);
+	}
+  
+  
+  // 触发 change 事件
+  emitChange: function() {
+    this.emit('change');
+  },
+  
+  // 提供给外部 View 绑定 change 事件
+  addChangeListener: function(callback) {
+    this.on('change', callback);
+  }
+  
+  removeChangeListener: function() {
+    this.remove('change', callback);
+  }
+});
+
+//第二部分调用register()方法
+AppDispatcher.register(function(action) {
+  var text;
+
+  switch(action.actionType) {
+    case TODO_CREATE:
+      TodoStore.addTodo(action.todo);
+      TodoStore.emitChange();
+      break;
+
+    case DELETE_TODO:
+      TodoStore.deleteTodo(action.id);
+      TodoStore.emitChange();
+      break;
+  }
+});
+
+```
 
 ### View
