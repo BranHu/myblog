@@ -111,6 +111,7 @@ const TodoAction = {
 }
 ```
 
+
 ### TodoStore
 
 * Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用AppDispatcher.register()
