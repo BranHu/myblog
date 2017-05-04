@@ -87,30 +87,32 @@ export default new Dispatcher();
 import AppDispatcher from './dispatcher/AppDispatcher';
 
 const TodoAction = {
-	create(todo) {
-		AppDispatcher.dispatch({
-			actionType: 'CREATE_TODO',
-			todo,
-			text,
-			value
-		});
-	},
+  create(todo) {
+    AppDispatcher.dispatch({
+      actionType: 'CREATE_TODO',
+      todo,
+      text,
+      value
+    });
+  },
 
-	delete(id) {
-		AppDispatcher.dispatch({
-			actionType: 'DELETE_TODO',
-			id,
-			name,
-			menu
-		})
-	}
+  delete(id) {
+    AppDispatcher.dispatch({
+      actionType: 'DELETE_TODO',
+      id,
+      name,
+      menu
+    })
+  }
 }
 ```
 
 ### TodoStore
 
 * Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用AppDispatcher.register()
+
     * 创建一个todoStore对象，其包含需要处理的数据和方法(其实是第二部分的回调函数)，这一部分是为了第二部分做准备的，方便方法调用。这里运用了Object.assign和node.js中的EventEmitter,让todoStore继承EventEmitter.prototype，因此就能使用on和emit等方法来监听和触发事件。
+    
     * 调用Dispatcher的register()方法，它可以注册不同事件的处理回调，并且在回调中对store进行处理。主要就是一个switch
 
 ```javascript
@@ -163,3 +165,65 @@ AppDispatcher.register(function(action) {
 ```
 
 ### View
+
+view即React中的组件，在引用了flux后组件部分就要进行一定的改造（主要是最上层组件，因为一般只有最上层组件才会用到state）
+
+* 将store中的数据存储到组件的state属性中
+
+```javascript
+  constructor(props) {
+    super(props);
+    //获取store存放的所有的数据，将其赋值给state
+    this.state = {
+      todos: TodoStore.getAll();
+    }
+    //这里的bind(this)是es6中的写法
+    this.createTodo = this.createTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
+    //onChange事件绑定声明的onChange方法
+    this.onChange = this.onChange.bind(this);
+  }
+```
+
+* 声明 componentDidMount 方法
+
+```javascript
+  componentDidMount() {
+    //初始化的时候在store中注册这个事件
+    TodoStore.addChangeListener(this.onChange);
+  }
+```
+* 声明 componentWillUnmount 方法
+
+```javascript
+  componentWillUnmount() {
+    //组件卸载的时候记得要清除这个事件绑定
+    TodoStore.removeChangeListener(this.onChange);
+  }
+```
+
+* 声明 onChange 方法
+
+```javascript
+  onChange() {
+    //store 改变后触发的回调，用setState来更新整个UI
+    this.setState({
+      todos: TodoStore.getAll()
+    })
+  }
+```
+
+* 声明其他需要的一些方法
+
+* render()
+
+```javascript
+  render() {
+    return (
+      <div>
+        <List items={this.state.todos} onDelete={this.deleteTodo} />
+        <CreateButton onClick={this.createTodo} />
+      </div>
+    )
+  }
+```
