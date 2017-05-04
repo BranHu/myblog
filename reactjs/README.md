@@ -14,6 +14,9 @@
   - [解决的问题和优缺点](#解决的问题和优缺点)
   - [项目构建的文档结构](#项目构建的文档结构)
   - [dispatcher](#dispatcher)
+  - [action](#action)
+  - [store](#store)
+  - [view](#view)
   
 ## React
 
@@ -80,7 +83,7 @@ import { Dispatcher } from 'flux';
 export default new Dispatcher();
 ```
 
-### TodoAction
+### action
 
 * 每个Action都是一个对象，通过定义一些 action creator 方法来组成。这些action creator方法都**封装了AppDispatcher对象的dispatch()方法**，dispatch()的入参是一个对象，包含一个actionType属性（说明动作的类型）和一些其他属性（用来传递数据）。Action中的 action creator 方法暴露给外部调用（View层的用户交互触发，或服务端接口调用来创建动作,），通过 dispatcher 分发对应的动作。
 
@@ -109,7 +112,7 @@ const TodoAction = {
 ```
 
 
-### TodoStore
+### store
 
 * Store是单例模式，整个程序中每种store仅有一个实例。主要分两个部分，一个对象，一个函数调用AppDispatcher.register()
 
@@ -166,7 +169,7 @@ AppDispatcher.register(function(action) {
 });
 ```
 
-### View
+### view
 
 view即React中的组件，在引用了flux后组件部分就要进行一定的改造（主要是最上层组件，因为一般只有最上层组件才会用到state）
 
