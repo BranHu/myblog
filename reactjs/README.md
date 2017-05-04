@@ -14,9 +14,9 @@
   - [解决的问题和优缺点](#解决的问题和优缺点)
   - [项目构建的文档结构](#项目构建的文档结构)
   - [AppDispatcher](#AppDispatcher)
-  - [Action](#Action)
-  - [Store](#Store)
-  - [View](#View)
+  - [TodoAction](#TodoAction)
+  - [TodoStore](#TodoStore)
+  - [TodoView](#TodoView)
   
 ## React
 
