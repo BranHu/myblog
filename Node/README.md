@@ -51,7 +51,7 @@
 
 * 菜单上找到Tools ---> Build System --->选择 NodeJs
 
-* 菜单上找到preference --->package settings--->Nodejs--->setting-default 打开文件并 更改成以下代码，主要是**"node_command"**和**"npm_command"**，应找到安装nodejs时路径下对应的文件。
+* 菜单上找到preference --->package settings--->Nodejs--->setting-default 打开文件并 更改成以下代码，主要是"node_command"和"npm_command"，应找到安装nodejs时路径下对应的文件。
 
 ```javascript
 // save before running commands
