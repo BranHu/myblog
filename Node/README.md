@@ -83,17 +83,21 @@
 * 新建一个目录，客户端进入该目录
 
 * 输入命令“express  nodetest2"，创建了一个express项目，项目名称为nodetest2
+
 ![](images/express-project1.png)
 
 在生成的package.json中增添依赖的模块
 
 * 安装依赖
+
 ![](images/express-project2.jpg)
 
 * 测试（*这里也可以直接用sublime打开app.js，然后ctrl+B运行程序*）
+
 ![](images/express-project3.png)
 
 * 在浏览器中可以访问 http://localhost:3000/
+
 ![](images/express-project4.png)
 
 ### 5. 将默认的ejs/jade模板更改为nunjucks
