@@ -16,7 +16,8 @@
 
 * http 模块
 
-    * http常用的方法为：  
+    * http常用的方法为:<br> 
+    
 ![](images/http.png)
 
 * file system 模块
