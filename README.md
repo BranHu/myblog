@@ -13,3 +13,5 @@
 - [HTTP](https://github.com/BranHu/myblog/tree/master/HTTP)
 - [ES6](https://github.com/BranHu/myblog/tree/master/ES6)
 - [Highcharts-interpretation](https://github.com/BranHu/myblog/tree/master/Highcharts)
+- [JavaScript编码规范](https://github.com/fex-team/styleguide/blob/master/javascript.md)
+- [CSS编码规范](https://github.com/fex-team/styleguide/blob/master/css.md)
