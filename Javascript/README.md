@@ -214,11 +214,14 @@ var myVar3 = a.join(' + '); // myVar3的值变为"Wind + Rain + Fire"
 var myVar4 = a.join('');    // myVar4的值变为"WindRainFire"
 ```
 ### 16.JSON.parse(str)
-*将Json字符串转化为JS对象,下面的data_json已经是一个Json对象了
+
+* 将Json字符串转化为JS对象,下面的data_json已经是一个Json对象了
+
 ```javascript
 data_json = JSON.parse(data);
 ```
 ### 17.JSON.stringfy(data_json)
+
 * 将Json对象转化为字符串
 
 ## 创建对象的方法
