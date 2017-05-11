@@ -102,12 +102,17 @@ console.log(Foo instanceof Function);//true
 console.log(Foo instanceof Foo);//false
 ```
 ### 6.slice()
+
 * slice() 方法可从已有的数组中返回选定的元素
+
 * arrayObject.slice(start,end)
 
 ### 7.hasOwnProperty()
+
 * 语法：object.hasOwnProperty(proName)
+
 * hasOwnProperty() 方法用来判断某个对象是否含指定的自身属性。所继承了 Object.prototype 的对象都会从原型链上继承到 hasOwnProperty 方法，这个方法可以用来检测一个对象是否含有特定的自身属性，和in运算符不同，该方法会忽略掉那些从原型链上继承到的属性。
+
 * 返回值：true/false
 
 ### 8.location()
