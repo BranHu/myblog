@@ -7,7 +7,10 @@
 - [flex](#flex)
 - [css中的选择器](#css中的选择器)
 - [css中的属性](#css中的属性)
+  - [单个角倒角](#单个角倒角)
   - [overflow](#overflow)
+  - [图片背景大小属性](#图片背景大小属性)
+  - [float浮动及clear的理解](#float浮动及clear的理解)
 - [css中的技巧](#css中的技巧)
 
 ## 元素位置重叠的问题
@@ -128,9 +131,11 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
     
 ## css中的属性
 
-### 1.border-top-left-radius
+### 单个角倒角
 
-* 可以控制部分角倒角，其他角不倒角
+* border-top-left-radius
+
+	* 可以控制部分角倒角，其他角不倒角
 
 ### overflow
 
@@ -162,7 +167,7 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
     
 。
     
-### 3.background-size
+### 图片背景大小属性
 
 * cover
     * 调整背景图片的宽度或高度（较小者，会有不显示的），以铺满整个元素，保持背景图片的宽高比
@@ -173,7 +178,7 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 * x,y
     * 通过x,y的值直接对背景图片进行定位
 	
-### 4.float浮动及clear的理解
+### float浮动及clear的理解
     
 ## css中的技巧
 
