@@ -7,10 +7,7 @@
 - [flex](#flex)
 - [css中的选择器](#css中的选择器)
 - [css中的属性](#css中的属性)
-  - [1.border-top-left-radius](#1.border-top-left-radius)
-  - [2.overflow](#2.overflow)
-  - [3.background-size](#3.background-size)
-  - [4.float浮动及clear的理解](#4.float浮动及clear的理解)
+  - [overflow](#overflow)
 - [css中的技巧](#css中的技巧)
 
 ## 元素位置重叠的问题
@@ -135,7 +132,7 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
 * 可以控制部分角倒角，其他角不倒角
 
-### 2.overflow
+### overflow
 
 * visible
 
