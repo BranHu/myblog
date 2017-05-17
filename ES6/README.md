@@ -8,6 +8,7 @@
 - [promise](#promise)
 - [generator](#generator)
 - [class](#class类)
+- [fetch](#fetch)
 
 ## 箭头函数
 
@@ -47,4 +48,36 @@ var html = `<div onclick='click(event,"${this.attr}")'></div>`
 
 详见 [es6](https://github.com/BranHu/myblog/blob/master/ES6/es6.html) 和 [es6(1)](https://github.com/BranHu/myblog/blob/master/ES6/es6(1).html)
 
+## fetch
+
+#### fetch的作用就是代替ajax进行后台的交互
+
+#### 获取数据get data
+
+[参考blog](https://css-tricks.com/using-fetch/)
+
+* fetch返回的是一个promise，即可以直接调用promise的then(fn(response))方法，response为请求返回的结果，json对象/xml/image，例子中可以看到json对象中有个body属性，我们获取的内容就在这个body中，它是一个readable stream
+
+* 将返回的response转换为我们能操作的data数据，对应的返回数据的类型有如下方法
+
+	* response.json
+
+	* response.text
+
+	* response.blob
+
+#### 传送数据send data
+
+* fetch('url',options)有两个入参，后面的options即是一个对象，来设置向后台请求是传递的数据，不设置options的话就相当于是get data了
+
+* options的具体内容
+
+	* 第一个option是请求的方法，post,get,del
+	* 第二个option是headers，'Content-Type': 'application/json'
+	* 第三个option是body，body的内容应该是字符串
+
+* fetch的error
+
+	* 在第一个then是没有catch error，需要用response的ok来进行判断
+	* 如果想知道error的具体信息，可以充分对response这个返回的内容进行操作，如果是json对象的话，里面有status和statusText，具体描述了相应的结果
 
