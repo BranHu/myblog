@@ -40,7 +40,7 @@
 		** 这里的关键是运用到了:checked,还有一点是运用到了label标签的for绑定属性;
 		*/
 
-		/*label {
+		label {
 		    display: inline-block;
 		    cursor: pointer;
 		    position: relative;
@@ -73,7 +73,7 @@
 		    font-size: 30px;
 		    text-align: center;
 		    line-height: 18px;
-		}*/
+		}
 
 	</style>
 </head>
@@ -88,18 +88,18 @@
 	-->
 	<!-- ———————————————————————————————————————————————————————————————————— -->
 	<!-- 2.自定义radio -->
-	<!-- <div class="radio">
-    	<input id="male" type="radio" name="gender" value="male">
-    	<label for="male">Male</label>
-    	<input id="female" type="radio" name="gender" value="female">
+	<div class="radio">
+    	<input id="male" type="radio" name="gender" value="male" onchange="console.log(123)">
+    	<label for="male" onchange="console.log(321)">Male</label>
+    	<input id="female" type="radio" name="gender" value="female" onchange="console.log(123)">
     	<label for="female">Female</label>
-	</div> -->
+	</div>
 	<!-- ———————————————————————————————————————————————————————————————————— -->
 	<!-- 3.复习float -->
-	<div style="width:500px;font-size:12px;overflow:hidden;">
+	<!-- <div style="width:500px;font-size:12px;overflow:hidden;">
 	    <span style="float:left;width:96px;height: 100px;background: red;">头像</span>
 	    <strong style="float:left;clear:right;width:96px;height: 100px;background: blue;">姓名</strong>
 	    <div style="width:96px;height: 100px;background: yellow;margin: 0;float: left;">我是一个帅哥</div>
- 	</div>
+ 	</div> -->
 </body>
 </html>
