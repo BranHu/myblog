@@ -40,22 +40,22 @@
 
 ### html5新增的drop和drag
 
-    * 拖拽的元素必须添加的属性和事件
-	
-        * draggable = true
-        * ondragstart事件，这里用到了event事件对象的dataTransfer对象的setData方法
-        * ondrag事件
+[测试用例](https://github.com/BranHu/myblog/blob/master/Html5/drag-drop.html)
+
+* 拖拽的元素必须添加的属性和事件
+    * draggable = true
+    * ondragstart事件，这里用到了event事件对象的dataTransfer对象的setData方法
+    * ondrag事件
 		
-    * 接收的元素必须添加的属性和事件
-	
-        * ondragover事件
-        * ondrop事件，这里用到了event事件对象的dataTransfer对象的getData方法接收setData传递过来的信息
+* 接收的元素必须添加的属性和事件
+    * ondragover事件
+    * ondrop事件，这里用到了event事件对象的dataTransfer对象的getData方法接收setData传递过来的信息
 		
-    * 其他事件
-        * ondragenter事件
-        * ondragleatve事件
-        * ondragend事件
-        * ondragexit事件
+* 其他事件
+    * ondragenter事件
+    * ondragleatve事件
+    * ondragend事件
+    * ondragexit事件
 		
 ### html5中event事件对象的dataTransfer对象
 		
