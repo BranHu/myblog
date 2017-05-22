@@ -40,8 +40,6 @@
 
 ### html5新增的drop和drag
 
-[测试用例](https://github.com/BranHu/myblog/blob/master/Html5/drag-drop.html)
-
     * 拖拽的元素必须添加的属性和事件
 	
         * draggable = true
