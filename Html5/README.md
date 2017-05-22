@@ -3,9 +3,12 @@
 [参考文档](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
 ## 目录
-- [html的标签][#html的标签]
-- [html知识盲点][#html知识盲点]
-- [html新增的属性][#html新增的属性]
+- [html的标签](#html的标签)
+- [html知识盲点](#html知识盲点)
+	- [html5新增的drop和drag](#html5新增的drop和drag)
+	- [html5中event事件对象的dataTransfer对象](#html5中event事件对象的dataTransfer对象)
+- [html新增的属性](#html新增的属性)
+
 
 ## html的标签
 
@@ -39,24 +42,22 @@
 
 [测试用例](https://github.com/BranHu/myblog/blob/master/Html5/drag-drop.html)
 
-	* 拖拽的元素必须添加的属性和事件
+    * 拖拽的元素必须添加的属性和事件
 	
-		* draggable = true
+        * draggable = true
+        * ondragstart事件，这里用到了event事件对象的dataTransfer对象的setData方法
+        * ondrag事件
 		
-		* ondragstart事件，这里用到了event事件对象的dataTransfer对象的setData方法
-		
-		* ondrag事件
-		
-	* 接收的元素必须添加的属性和事件
+    * 接收的元素必须添加的属性和事件
 	
-		* ondragover事件
+        * ondragover事件
+        * ondrop事件，这里用到了event事件对象的dataTransfer对象的getData方法接收setData传递过来的信息
 		
-		* ondrop事件，这里用到了event事件对象的dataTransfer对象的getData方法接收setData传递过来的信息
-	* 其他事件
-		ondragenter事件
-		ondragleatve事件
-		ondragend事件
-		ondragexit事件
+    * 其他事件
+        * ondragenter事件
+        * ondragleatve事件
+        * ondragend事件
+        * ondragexit事件
 		
 ### html5中event事件对象的dataTransfer对象
 		
