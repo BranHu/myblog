@@ -1,13 +1,13 @@
 # Html5
 
-[²Î¿¼ÎÄµµ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+[å‚è€ƒæ–‡æ¡£](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
-## Ä¿Â¼
-- [HtmlµÄ±êÇ©][#HtmlµÄ±êÇ©]
-- [HtmlÖªÊ¶Ã¤µã][#HtmlÖªÊ¶Ã¤µã]
-- [HtmlĞÂÔöµÄÊôĞÔ][#HtmlĞÂÔöµÄÊôĞÔ]
+## ç›®å½•
+- [htmlçš„æ ‡ç­¾][#htmlçš„æ ‡ç­¾]
+- [htmlçŸ¥è¯†ç›²ç‚¹][#htmlçŸ¥è¯†ç›²ç‚¹]
+- [htmlæ–°å¢çš„å±æ€§][#htmlæ–°å¢çš„å±æ€§]
 
-## HtmlµÄ±êÇ©
+## htmlçš„æ ‡ç­¾
 
 ### <nav>
 
@@ -15,43 +15,49 @@
 
 ### <section>
 
-## HtmlÖªÊ¶Ã¤µã
+## htmlçŸ¥è¯†ç›²ç‚¹
 
-### input±êÇ©checkboxºÍradio
+### inputæ ‡ç­¾checkboxå’Œradio
 
 * radio
 
-	* radioÎªµ¥Ñ¡¿ò£¬ËüÓĞnameÊôĞÔ£¬¹æ¶¨¾ßÓĞÏàÍ¬nameÊôĞÔµÄradioÎªÒ»¸ö×é£¬Ö»ÄÜÑ¡ÔñÆäÖĞµÄÒ»¸ö
-	* radioÓĞcheckedÊôĞÔ£¬ÓÃÀ´ÉèÖÃÄ¬ÈÏÑ¡ÔñÏî
-	* radioÅäºÏµÄjs²Ù×÷Ò»°ã°ó¶¨changeÊÂ¼ş£¬Í¨¹ıinput¶ÔÏóµÄcheckedÊôĞÔÎªtrue/falseÀ´×öĞèÇó¿ª·¢
-	* radioÓĞvalueÊôĞÔ£¬¿ÉÒÔ¸ø¸ÃradioÉèÖÃÖµ£¬¸¨Öújs²Ù×÷
+	* radioä¸ºå•é€‰æ¡†ï¼Œå®ƒæœ‰nameå±æ€§ï¼Œè§„å®šå…·æœ‰ç›¸åŒnameå±æ€§çš„radioä¸ºä¸€ä¸ªç»„ï¼Œåªèƒ½é€‰æ‹©å…¶ä¸­çš„ä¸€ä¸ª
+	* radioæœ‰checkedå±æ€§ï¼Œç”¨æ¥è®¾ç½®é»˜è®¤é€‰æ‹©é¡¹
+	* radioé…åˆçš„jsæ“ä½œä¸€èˆ¬ç»‘å®šchangeäº‹ä»¶ï¼Œé€šè¿‡inputå¯¹è±¡çš„checkedå±æ€§ä¸ºtrue/falseæ¥åšéœ€æ±‚å¼€å‘
+	* radioæœ‰valueå±æ€§ï¼Œå¯ä»¥ç»™è¯¥radioè®¾ç½®å€¼ï¼Œè¾…åŠ©jsæ“ä½œ
 	
 * checkbox
 
-	* checkboxÎª¶àÑ¡¿ò£¬ËüÓĞnameÊôĞÔ£¬¹æ¶¨¾ßÓĞÏàÍ¬nameÊôĞÔµÄcheckboxÎªÒ»¸ö×é
-	* radioÓĞcheckedÊôĞÔ£¬ÓÃÀ´ÉèÖÃÄ¬ÈÏÑ¡ÔñÏî
-	* radioÅäºÏµÄjs²Ù×÷Ò»°ã°ó¶¨changeÊÂ¼ş£¬Í¨¹ıinput¶ÔÏóµÄcheckedÊôĞÔÎªtrue/falseÀ´×öĞèÇó¿ª·¢
-	* radioÓĞvalueÊôĞÔ£¬¿ÉÒÔ¸ø¸ÃcheckboxÉèÖÃÖµ£¬¸¨Öújs²Ù×÷
+	* checkboxä¸ºå¤šé€‰æ¡†ï¼Œå®ƒæœ‰nameå±æ€§ï¼Œè§„å®šå…·æœ‰ç›¸åŒnameå±æ€§çš„checkboxä¸ºä¸€ä¸ªç»„
+	* radioæœ‰checkedå±æ€§ï¼Œç”¨æ¥è®¾ç½®é»˜è®¤é€‰æ‹©é¡¹
+	* radioé…åˆçš„jsæ“ä½œä¸€èˆ¬ç»‘å®šchangeäº‹ä»¶ï¼Œé€šè¿‡inputå¯¹è±¡çš„checkedå±æ€§ä¸ºtrue/falseæ¥åšéœ€æ±‚å¼€å‘
+	* radioæœ‰valueå±æ€§ï¼Œå¯ä»¥ç»™è¯¥checkboxè®¾ç½®å€¼ï¼Œè¾…åŠ©jsæ“ä½œ
 
-## HtmlĞÂÔöµÄÊôĞÔ
+## htmlæ–°å¢çš„å±æ€§
 
-### html5ĞÂÔöµÄdropºÍdrag
+### html5æ–°å¢çš„dropå’Œdrag
 
-[²âÊÔÓÃÀı]()
+[æµ‹è¯•ç”¨ä¾‹](https://github.com/BranHu/myblog/blob/master/Html5/drag-drop.html)
 
-	* ÍÏ×§µÄÔªËØ±ØĞëÌí¼ÓµÄÊôĞÔºÍÊÂ¼ş
+	* æ‹–æ‹½çš„å…ƒç´ å¿…é¡»æ·»åŠ çš„å±æ€§å’Œäº‹ä»¶
+	
 		* draggable = true
-		* ondragstartÊÂ¼ş£¬ÕâÀïÓÃµ½ÁËeventÊÂ¼ş¶ÔÏóµÄdataTransfer¶ÔÏóµÄsetData·½·¨
-		* ondragÊÂ¼ş
-	* ½ÓÊÕµÄÔªËØ±ØĞëÌí¼ÓµÄÊôĞÔºÍÊÂ¼ş
-		* ondragoverÊÂ¼ş
-		* ondropÊÂ¼ş£¬ÕâÀïÓÃµ½ÁËeventÊÂ¼ş¶ÔÏóµÄdataTransfer¶ÔÏóµÄgetData·½·¨½ÓÊÕsetData´«µİ¹ıÀ´µÄĞÅÏ¢
-	* ÆäËûÊÂ¼ş
-		ondragenterÊÂ¼ş
-		ondragleatveÊÂ¼ş
-		ondragendÊÂ¼ş
-		ondragexitÊÂ¼ş
 		
-### html5ÖĞeventÊÂ¼ş¶ÔÏóµÄdataTransfer¶ÔÏó
+		* ondragstartäº‹ä»¶ï¼Œè¿™é‡Œç”¨åˆ°äº†eventäº‹ä»¶å¯¹è±¡çš„dataTransferå¯¹è±¡çš„setDataæ–¹æ³•
+		
+		* ondragäº‹ä»¶
+		
+	* æ¥æ”¶çš„å…ƒç´ å¿…é¡»æ·»åŠ çš„å±æ€§å’Œäº‹ä»¶
+	
+		* ondragoveräº‹ä»¶
+		
+		* ondropäº‹ä»¶ï¼Œè¿™é‡Œç”¨åˆ°äº†eventäº‹ä»¶å¯¹è±¡çš„dataTransferå¯¹è±¡çš„getDataæ–¹æ³•æ¥æ”¶setDataä¼ é€’è¿‡æ¥çš„ä¿¡æ¯
+	* å…¶ä»–äº‹ä»¶
+		ondragenteräº‹ä»¶
+		ondragleatveäº‹ä»¶
+		ondragendäº‹ä»¶
+		ondragexitäº‹ä»¶
+		
+### html5ä¸­eventäº‹ä»¶å¯¹è±¡çš„dataTransferå¯¹è±¡
 		
 	
