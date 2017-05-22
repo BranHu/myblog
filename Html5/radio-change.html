@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="radio" name="sex" value="female" checked="true">
+	<input type="radio" name="sex" value="male">
+	<script type="text/javascript">
+	/*
+	**总结radio的事件，一般用change事件来实现效果
+	*/
+		(function(){
+			var inputs = document.getElementsByTagName('input');
+			inputs[0].addEventListener('change', function(){
+				console.log(123);
+			});
+			inputs[1].addEventListener('change', function(){
+				console.log(321);
+			});
+		})()
+	</script>
+</body>
+</html>

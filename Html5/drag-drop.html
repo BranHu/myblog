@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+    div {
+	    margin: 0em;
+	    padding: 2em;
+	}
+	#source {
+	    color: blue;
+	    border: 1px solid black;
+	}
+	#target {
+	    border: 1px solid black;
+	}
+</style>
+<body>
+	<div>
+    	<p id="source" ondrag="drag_handler(event);" ondragstart="dragstart_handler(event);" draggable="true" ondragend="dragend_handler(event);" ondragenter="dragenter_handler(event)" ondragleave="dragleave_handler(event)" ondragexit="dragexit_handler(event)">
+    	Select this element, drag it to the Drop Zone and then release the selection to move the element.</p>
+    </div>
+    <div id="target" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">Drop Zone</div>
+
+	<script type="text/javascript">
+	/*
+    **html5中新增的drag和drop事件的相关使用方法
+    **1.拖拽的元素要将其draggable属性设置为true
+    **2.拖拽的元素要设置ondragstart事件，在开始拖拽的时候触发，同时要利用event事件对象的dataTransfer对象的setData方法传递拖拽元素的id，其类似于一个通道
+    **3.拖拽的元素还要设置ondrag事件，只要鼠标为放开，其一直被触发
+    **4.接收的元素要设置ondragover事件，在拖拽的元素和接受的元素有交错的时候会触发
+    **5.接收的原色要设置ondrop事件，在鼠标放下的时候触发，这里要利用event事件对象的dataTransfer对象的getData方法接收setData传递过来的信息
+    **6.ondragenter事件设置在拖拽的元素上，即当拖拽开始进行的时候触发，与上述各事件的先后顺序是 ondragstart--->ondrag--->ondragenter
+    **7.ondragleatve事件设置在拖拽的元素上，即当拖拽元素完全脱离自己本来位置时触发
+    **8.ondragend事件设置在拖拽的元素上，当拖拽结束时候被触发，不论该拖拽元素最后有没有被拖拽成功都会触发
+    **9.ondragexit事件不清楚
+    */
+
+	function drag_handler(ev) {
+	 console.log("Drag");
+	}
+
+	function dragstart_handler(ev) {
+	 console.log("dragStart");
+	 ev.currentTarget.style.border = "dashed";
+	 ev.dataTransfer.setData("text", ev.target.id);
+	}
+
+	function dragover_handler(ev) {
+	 console.log("dragOver");
+	 ev.currentTarget.style.background = "lightblue";
+	 ev.preventDefault();
+	}
+
+	function drop_handler(ev) {
+	 console.log("Drop");
+	 ev.preventDefault();
+	 var data = ev.dataTransfer.getData("text");
+	 ev.target.appendChild(document.getElementById(data));
+	}
+
+	function dragenter_handler(ev) {
+	 console.log("dragEnter");
+	 ev.currentTarget.style.background = "yellow";
+	}
+
+	function dragleave_handler(ev) {
+	 console.log("dragLeave");
+	 ev.currentTarget.style.background = "white";
+	}
+
+	function dragend_handler(ev) {
+	 console.log("dragEnd");
+	 var el=document.getElementById("target");
+	 el.style.background = "pink";
+	}
+
+	function dragexit_handler(ev) {
+	 console.log("dragExit");
+	 ev.currentTarget.style.background = "green";
+	}
+	</script>
+</body>
+</html>
