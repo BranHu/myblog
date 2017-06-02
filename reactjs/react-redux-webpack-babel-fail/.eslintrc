@@ -1,4 +1,0 @@
-{
-	"extends" : "airbnb",
-	linebreak-style: ["error", "windows"]
-}
