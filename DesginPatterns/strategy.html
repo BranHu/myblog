@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /*策略模式
+     **1.定义:策略指的是定义一系列的算法，把它们各自封装成策略类，算法被封装在策略类
+     **内部的方法里，当对策略类context(例子中的validator)发起请求的时候，context总
+     **是把请求委托给这些策略对象中间的某一个进行计算
+     **2.解决的问题:可消除原程序中大片的条件分支语句
+     **3.使用场景：在有多种不同情况和算法的时候且可替换
+     **4.注释:一个基于策略模式的程序至少由两部分组成,一个策略类，一个环境类
+     **5.以表单验证为例
+     */
+    /*
+     **step1:声明策略类，封装具体的业务逻辑/算法到策略对象中，并负责具体的计算过程
+     */
+    var strategies = {
+        isNonEmpty: function(value, errorMsg) {
+            if (value === '') {
+                return errorMsg;
+            }
+        },
+        minLength: function(value, length, errorMsg) {
+            if (value.length < length) {
+                return errorMsg;
+            }
+        },
+        isMobile: function(value, errorMsg) {
+            if (!/^1[3|5|8][0-9]{9}$/.test(value)) {
+                return errorMsg;
+            }
+        }
+    }
+
+    /*
+     **step2:声明环境类Context,Context接受客户的请求，随后把请求委托给某一个策略类。
+     **要做到这点,说明Context中要维持对某个策略对象的引用。
+     **
+     */
+    var Validator = function() {
+        //保存校验规则,里面存放的是每个校验规则的函数
+        this.cache = [];
+    };
+
+    /*
+    **给cache里面添加不同的校验规则
+    **注意下面的全局validataFunc函数中没添加一个校验规则(即调用add()),cache数组push的函数都已
+    **声明定义好了，某些变量也已定义了
+    */
+    Validator.prototype.add = function(dom, rule, errorMsg) {
+        var ary = rule.split(':');
+        this.cache.push(function() {
+            var strategy = ary.shift();
+            ary.unshift(dom.value);
+            ary.push(errorMsg);
+            return strategies[strategy].apply(dom, ary);
+        })
+    }
+
+    /*
+    **循环validator的cache中的校验规则
+    */
+    Validator.prototype.start = function() {
+        for (var i = 0, validataFunc; validataFunc = this.cache[i++];) {
+        	/*
+        	**注意这里的validataFunc是this.cache数组中的函数，即上面push的
+        	**而不是全局的validataFunc
+            */
+            var msg = validataFunc();
+            if (msg) {
+                return msg
+            }
+        }
+    }
+
+    /*
+    **循环validator的cache中的校验规则
+    */
+    var validataFunc = function() {
+        var validator = new Validator();
+        /*******添加一些校验规则*********/
+        //作用就是往validator的cache中定义好的函数,供validator.start()使用
+        validator.add(registerForm.username, 'isNonEmpty', '用户名不能为空')；
+        validator.add(registerForm.password, 'minLength:6', '密码长度不能少于6位');
+        validator.add(registerForm.phoneNumber, 'isMobile', '手机号码格式不正确');
+        var errorMsg = validator.start();
+        return errorMsg;
+    }
+
+    var registerForm = document.getElementById('registerForm');
+    registerForm.onsubmit = function() {
+        var errorMsg = validataFunc();
+        if (errorMsg) {
+            console.log(errorMsg);
+            return false;
+        }
+    }
+    </script>
+    <form action="" id="registerForm" method="post">
+        请输入用户名：
+        <input type="text" name="username"> 请输入密码：
+        <input type="text" name="password"> 请输入手机号码：
+        <input type="text" name="phoneNumber">
+        <button>提交</button>
+    </form>
+</body>
+
+</html>
