@@ -1,4 +1,4 @@
-# React and Flux
+# React Flux React-Router Redux
 
 ## 目录
 
@@ -18,13 +18,146 @@
   - [store](#store)
   - [view](#view)
   
+- React-Router
+
+- Redux
+  
 ## React
 
 ### component
 
-### props and state
+React 的核心思想是组件式和虚拟Dom，每个页面分割成多个组价组成，每个组件可以多次复用，其注意要点如下：
+
+* 每个页面存在一个父组件，一般为app.js或index.js，主要是将jsx渲染到html中，核心代码为
+
+```javascript
+ReactDOM.render(
+  <Parent />,
+  document.getElementById('app')
+);
+```
+
+* 组件的声明创建一般通过es6的class，继承React.Component,首字母大写
+
+```javascript
+class ComponentA extends React.Component {
+  constructor(props) {
+	super(props);
+	this.state = {
+	  value1:'',
+	  value2:'',
+	  ...
+	}
+  };
+  
+  //这里添加需要的方法
+  
+  //最后调用react内置的render()方法进行渲染
+  render() {
+    return({
+	  ...
+    })
+  };
+ 
+}
+```
+
+* 组件的引用react一般是通过jsx的方式,与声明的组件类名称一致
+
+```javascript
+render() {
+  return (
+    <div>
+      <ComponentA />
+	  <ComponentB />
+	  ...
+	</div>
+  )
+}
+```
+
+### props
+
+* props实现了组件之间的通信，一般设置静态的属性
+
+* props需要利用es6的class特性，在class函数的constructor中调用super(props)，其作用是来新建父类的this对象，它会调用父类即React.Component的constructor
+
+* 在一个class组件内，this.props代表的是引用组件时候的这个组件的属性对象(this代表该组件)，可以通过this.props来引用具体的属性， 下面的例子在span标签中就会显示bran
+
+```javascript
+//step1:class ComponentA中
+//...
+
+  render() {
+    return({
+	  <span>{this.props.name}</span>
+    })
+  };
+  
+//...
+
+//step2:引用ComponentA时
+//...
+render() {
+  return (
+    <div>
+      <ComponentA name='bran'/>
+	  ...
+	</div>
+  )
+}
+//...
+```
+
+### state
+
+* state一般是来设置页面动态的属性，比如页面时钟，实时更新搜索内容等
+
+* 在规划属性时需要判断是用props还是用state，发现某个属性为静态时就用props，若是动态且交互性较强就用state
+
+* state就是一个json，里面添加变动的属性，state在class组件的constructor中添加，和props一样
+
+* 在设置动态属性变动的时候在封装的函数内调用setState方法，入参为一个json，包含特定需要改变的属性即可(不需要全部添加)，一般需要this.setState({value1:changing})
 
 ### lifecircle
+
+* 组件初始化
+
+    * getDefaultProps
+	    
+		* 只会在装载之前调用一次，在组件中赋值的数据会被设置到this.props中 
+	
+	* getInitialState
+	
+	    * 只会在装载之前调用一次，这个函数的返回值会被设置到this.state中
+	
+	* componentWillMount
+	
+	    * 在render之前被调用，可以在渲染之前做一些准备工作
+	
+	* render
+	
+	* componentDidMount
+	
+	    * 只会在装载完成之后调用一次，如果想让组件加载完毕后做一些额外的操作，可以在这个方法中添加相应的代码
+
+* 组件props更新
+
+    * componentWillReceiveProps
+	
+	* shouldComponentUpdate
+	
+	* componentWillUpdate
+	
+	* render
+	
+	* componentDidUpdate
+
+* 组件卸载
+
+    * componentWillUnmount
+	
+	    * 在组件被卸载和销毁之前调用的方法，可以在这里做一些清理的工作
 
 ### 其他
 
