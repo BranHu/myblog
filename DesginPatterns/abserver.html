@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body>
-	<script type="text/javascript">
-	 /*
+    <script type="text/javascript">
+    /*
      **观察者模式/发布-订阅模式
      **1.定义:发布—订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，
      **当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
@@ -15,7 +17,119 @@
      **观察者模式广泛应用于异步编程中，在异步编程中使用观察者模式，我们
      **就无需过多关注对象在异步运行期间的内部状态，只需订阅感兴趣的事件发生点;
      **观察者模式可以取代对象之间硬编码的通知机制
+     **3.实现观察者模式的步骤
+     **(1)确定谁充当发布者
+     **(2)给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者
+     **(3)最后发布消息的时候，发布者遍历缓存列表，依次触发存放的订阅者回调函数
+     **4.例子
+     **(1).网站登录:网站的各组件需要ajax获取登录信息
+     **(2).
      */
-	</script>
+    var event = { //发布者
+        clientList: [], //缓存列表，这里其实可以就初始化为一个对象{}
+        listen: function(key, fn) { //订阅的话调用listen
+            //数组本身就是一个对象，向该数组对象上添加属性
+            if (!this.clientList[key]) {
+                this.clientList[key] = []; //即是一个二维数组了
+            }
+            this.clientList[key].push(fn); //订阅的消息添加进缓存列表
+        },
+        trigger: function() {
+            var key = Array.prototype.shift.call(arguments),
+                fns = this.clientList[key];
+
+            if (!fns || fns.length === 0) {
+                return false;
+            }
+
+            for (var i = 0, fn; fn = fns[i++];) { //循环缓存列表
+                fn.apply(this, arguments); //arguments 是trigger时带上的参数
+            }
+        }
+    }
+
+    //给所有的对象都动态安装发布-订阅功能
+    var installEvent = function(obj) {
+        for (var i in event) {
+            obj[i] = event[i];
+        }
+    }
+
+    var salesOffices = {};
+    installEvent(salesOffices); //给salesOffices安装发布-订阅功能
+    salesOffices.listen('squareMeter88', function(price) { //小明订阅消息
+        console.log('价格=' + price);
+    });
+
+    salesOffices.listen('squareMeter100', function(price) { //小红订阅消息
+        console.log('价格=' + price);
+    });
+
+    salesOffices.trigger('squareMeter88', 200000);
+    salesOffices.trigger('squareMeter100', 300000);
+
+    //取消订阅见书
+
+
+    //再加入中介者模式优化后，Event为中介者
+    var Event = (function() {
+
+        var clientList = {},
+            listen,
+            trigger,
+            remove;
+
+        listen = function(key, fn) { //订阅的话调用listen
+            //数组本身就是一个对象，向该数组对象上添加属性
+            if (!this.clientList[key]) {
+                this.clientList[key] = []; //即是一个二维数组了
+            }
+            this.clientList[key].push(fn); //订阅的消息添加进缓存列表
+        };
+
+        trigger = function() {
+            var key = Array.prototype.shift.call(arguments),
+                fns = this.clientList[key];
+
+            if (!fns || fns.length === 0) {
+                return false;
+            }
+
+            for (var i = 0, fn; fn = fns[i++];) { //循环缓存列表
+                fn.apply(this, arguments); //arguments 是trigger时带上的参数
+            }
+        };
+
+        remove = function() {
+            var fns = clientList[key];
+            if (!fns) {
+                return false;
+            }
+            if (!fn) {
+                fns && (fns.length = 0);
+            } else {
+                for (var l = fns.length - 1; l >= 0; l--) {
+                    var _fn = fns[l];
+                    if (_fn === fn) {
+                        fns.splice(l, 1);
+                    }
+                }
+            }
+        };
+
+        return {
+            listen: listen,
+            trigger: trigger,
+            remove: remove
+        }
+
+        Event.listen('squareMeter88', function(price){
+        	console.log()
+        });
+
+        Event.trigger('squareMeter88', 200000);
+    })();
+    </script>
 </body>
+
 </html>
