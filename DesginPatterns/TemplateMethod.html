@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*模板方法模式
+		**1.核心
+		**利用js的原型模仿Java中的多态思想
+		**2.步骤
+		**(1)抽象出通用的结构和相同的方法
+		**(2)相同的方法直接写在原型上,区别的方法设置为空,在子类中实现
+		**(3)创建子类,new一个抽象的类并将其赋值给该子类的原型，即创建了该子类
+		**(4)抽象类的抽象结构在init()中
+		**3.小结
+		**在JavaScript中可能没必要真正运用继承,运用高阶函数就可以实现功能解决问题。但是在传统语言,如java中则可能就需要这种设计模式
+		*/
+		var Coffee = function(){};
+
+		Coffee.prototype.boilWater = function(){
+			console.log('把水煮沸');
+		};
+
+		Coffee.prototype.brewCoffeeGriends = function(){
+			console.log('用沸水冲泡咖啡');
+		};
+
+		Coffee.prototype.pourInCup = function(){
+			console.log('把咖啡倒进杯子');
+		};
+
+		Coffee.prototype.addSugarAndMilk = function(){
+			console.log('加糖和牛奶');
+		};
+
+		Coffee.prototype.init = function(){
+			this.boilWater();
+			this.brewCoffeeGriends();
+			this.pourInCup();
+			this.addSugarAndMilk();
+		};
+
+		var coffee = new Coffee();
+		coffee.init();
+
+		//抽象出通用的方法
+		var Beverage = function(){};
+
+		Coffee.prototype.boilWater = function(){
+			console.log('把水煮沸');
+		};
+
+		Coffee.prototype.brew = function(){    //空方法，由子类重写
+		};
+
+		Coffee.prototype.pourInCup = function(){  //空方法，由子类重写
+		};
+
+		Coffee.prototype.addCondiments = function(){  //空方法，由子类重写
+		};
+
+		//创建子类
+		var Coffee = function(){};
+
+		Coffee.prototype = new Beverage();
+
+		//重写方法
+		Coffee.prototype.brew = function(){
+			console.log('用沸水冲泡咖啡');
+		};
+
+		Coffee.prototype.pourInCup = function(){
+			console.log('把咖啡倒进杯子');
+		};
+
+		Coffee.prototype.addCondiments = function(){
+			console.log('加糖和牛奶');
+		};
+
+		var Coffee = new Coffee();
+	</script>
+</body>
+</html>

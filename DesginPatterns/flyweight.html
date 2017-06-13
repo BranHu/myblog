@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /*
+     **享元模式
+     **1.解决的问题：
+     **系统中对象过多的问题
+     **一个程序中使用了大量的相似对象
+     **由于大量对象造成很大的内存开销
+     **对象的大多数状态(属性)可以变为外部状态
+     **剥离出对象的外部状态后，可以用相对较少的共享对象取代取代大量对象
+     **2.特点
+     **享元模式要求将对象的属性划分为内部状态和外部状态
+     **3.目标
+     **目标是尽量减少共享对象的数量
+     **4.方法
+     **内部状态存储于对象内部
+     **内部状态可以被一些对象共享
+     **内部状态独立于具体的场景,通常不会改变
+     **外部状态取决于具体的场景,并根据场景而变化,外部状态不能被共享
+     */
+
+    //通过享元模式优化后的
+    //step1 剥离外部状态
+    var Upload = function(uploadType) {
+        this.uploadType = uploadType; //这个是内部状态
+    };
+
+    //工厂进行对象实例化
+    var UploadFactory = (function() {     //确保只有该有的共享对象
+        var createdFlyWeightObjs = {};   //共享对象
+
+        return {
+            create: function(uploadType) {
+                if (createdFlyWeightObjs[uploadType]) {
+                    return createdFlyWeightObjs[uploadType];
+                }
+
+                return createdFlyWeightObjs[uploadType] = new Upload(uploadType);
+            }
+        }
+    })();
+
+    //step3管理封装外部状态
+    var uploadManager = (function() {
+        var uploadDatabase = {};
+
+        return {
+            add: function(id, uploadType, fileName, fileSize) {
+                var flyWeightObj = UploadFactory.create(uploadType);
+
+                var dom = document.createElement('div');
+                dom.innerHTML = '';
+                dom.querySelector('.delFile').onclick = function() {
+                    flyWeightObj.delFile(id);
+                }
+
+                document.body.appendChild(dom);
+
+                uploadDatabase[id] = {      //不用绑定对象，而是将其放到一个json中存储
+                    fileName: fileName,
+                    fileSize: fileSize,
+                    dom: dom
+                };
+                return flyWeightObj;
+            },
+            setExternalState: function(id, flyWeightObj) {  //通过这个方法将共享对象和外部状态对应起来
+                var uploadData = uploadDatabase[id];
+                for (var i in uploadData) {
+                    flyWeightObj[i] = uploadData[i];   
+                }
+            }
+        }
+    })();
+
+    var id = 0;
+    window.startUpload = function(uploadType, files) {
+        for (var i = 0, file; file = files[i++];) {
+            var uploadObj = uploadManager.add(++id, uploadType, file.fileName, file.fileSize);
+        }
+    }
+    </script>
+</body>
+
+</html>
