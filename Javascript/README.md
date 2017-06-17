@@ -151,19 +151,19 @@ Object.defineProperty(obj, prop, descriptor)
 ### 数组的方法
 
 [参考文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-#### 1.pop()
+### 1.pop()
 
 * pop() 方法用于删除并返回数组的最后一个元素
 * arrayObject.pop()
 * pop() 方法将删除 arrayObject 的最后一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 pop() 不改变数组，并返回 undefined 值
 
-#### 2.shift()
+### 2.shift()
 
 * shift() 方法用于删除并返回数组的第一个元素
 * arrayObject.shift()
 * shift() 方法将删除 arrayObject 的第一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 shift() 不改变数组，并返回 undefined 值
 
-#### 3.slice()
+### 3.slice()
 
 * slice() 方法可从已有的数组中返回选定的元素
 * arrayObject.slice(start,end)
@@ -171,7 +171,7 @@ Object.defineProperty(obj, prop, descriptor)
 * 不包含最后一个元素，即end对应的元素
 * 不写end，即没有结尾，指一直到数组的最后一个元素且包含最后一个元素
 
-#### 4.join()
+### 4.join()
 
 * 所的数组元素被转换成字符串，再用一个分隔符将这些字符串连接起来。如果元素是undefined 或者null， 则会转化成空字符串
 * 例子
@@ -183,7 +183,7 @@ var myVar3 = a.join(' + '); // myVar3的值变为"Wind + Rain + Fire"
 var myVar4 = a.join('');    // myVar4的值变为"WindRainFire"
 ```
 
-#### 5.map()
+### 5.map()
 
 * map() 方法返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。
 * map 方法会给原数组中的每个元素都顺序调用一次 callback 函数。callback 每次执行后的返回值（包括undefined组合起来形成一个新数组。 callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。
@@ -195,7 +195,7 @@ var roots = numbers.map(Math.sqrt);
 //roots的值为[1, 2, 3], numbers的值仍为[1, 4, 9]
 ```
 
-#### 6.forEach()
+### 6.forEach()
 
 * 数组的迭代器，和map()类似，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 主要需要研究回调函数
@@ -207,7 +207,7 @@ arr.forEach(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 7.filter()
+### 7.filter()
 
 * 数组的过滤器(也是迭代器，一个个元素的比较)，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 返回值就是过滤筛选出来的数组
@@ -220,7 +220,7 @@ arr.filter(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 8.every()
+### 8.every()
 
 * 数组的检查器(和filter比较类似)，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 返回值是true和false
@@ -233,19 +233,19 @@ arr.filter(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 9.concat()
+### 9.concat()
 
 * concat() 方法将多个数组组合成一个
 * new_array = old_array.concat(value1[, value2[, ...[, valueN]]])
 
-#### 10.fill()
+### 10.fill()
 
 * concat() 方法将一个数组内的元素部分进行替换，返回替换了的数组
 * arr.fill(value)
 * arr.fill(value, start)
 * arr.fill(value, start, end)
 
-#### 11.find()
+### 11.find()
 
 * find() 方法和filter方法类似，但是find是找到符合条件的第一个元素并返回该元素，相当于找到该元素就中断迭代了，而filter()是遍历，将全部的都寻找出来组成数组返回
 * 语法
@@ -255,7 +255,7 @@ arr.find(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 12.some()
+### 12.some()
 
 * some() 方法和every()方法类似，不同处是只要arr中有一个元素符合条件的some的返回值就是true，而every却要保证所有的元素都要符合要求
 * 语法
@@ -265,14 +265,14 @@ arr.find(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 13.splice()
+### 13.splice()
 
 * splice()方法是向数组中添加元素或删除元素
 * arr.sort()
 * arr.sort(compareFunction)
 * 入参start是数组操作的起点，入参deleteCount是要删除元素的个数，入参item是添加的元素
 
-#### 14.sort()
+### 14.sort()
 
 * sort()方法是将数组进行排序
 * arr.sort()
@@ -280,11 +280,11 @@ arr.find(function callback(currentValue, index, array) {
 * 如果没有compareFunction的时候，sort()方法比较的依据是将数组中的元素转换为字符串(不论是对象、整型还是浮点型)，依据字符串的unicode值来进行排序
 * 如果有compareFuction，当compareFunction(a,b)的返回值<0时，a comes first，反之当compareFunction(a,b)的返回值>0时，b comes first，当相等时，a和b的位置保持不变
 
-#### 15.indexOf()
+### 15.indexOf()
 
-#### 16.reverse()
+### 16.reverse()
 
-#### 17.includes()
+### 17.includes()
 
 ### 字符串的方法
 
@@ -391,18 +391,18 @@ regexp.test(str)
 
 ### 其他常用的方法
 
-#### 1. Window.open()
+### 1. Window.open()
 
 * open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口
 * window.open(URL,name,features,replace)
 * 注：open()中的入参代表意思以及窗口的一些属性配置（比如大小、位置）需详查W3C。另，窗口的属性可以在入参features中进行配置
 
-#### 2. dateObj.valueOf()
+### 2. dateObj.valueOf()
 
 * Date的对象的valueOf()方法返回的是从1970年1月1日0时0分0秒到当前的毫秒数
 * dateObj.valueOf()的作用和Date.prototype.getTime()方法一样
 
-#### 5.instanceof()
+### 5.instanceof()
 * 在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回 “object”。这就需要用到instanceof来检测某个对象是不是另一个对象的实例。
 另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。<br>例如：
 ```javascript
@@ -424,7 +424,7 @@ console.log(Foo instanceof Function);//true
 console.log(Foo instanceof Foo);//false
 ```
 
-#### 7.hasOwnProperty()
+### 7.hasOwnProperty()
 
 * 语法：object.hasOwnProperty(proName)
 
