@@ -39,6 +39,8 @@
     ![](for-answer.png)
 * 闭包记住两种情况，一个是函数当作值传递，一个是返回函数
 
+* 若想利用单例形成闭包需要在全局作用域下，如果在一个函数作用域内是形成不了的
+
 ### 4.this
 * 默认绑定
 * 隐式绑定
@@ -53,8 +55,74 @@
 
 ### 6.argument
 
+### 7.Object.assign()
+
+* Object.assign()方法可以将多个对象的属性值拷贝到target对象上，并且返回target
+
+* 如果拷贝的属性值名有相同的，则会覆盖，即Merging objects with same properties
+
+* 拷贝的值要是可枚举的，如果设置某值不枚举，则不会被拷贝
+
+* source对象中的属性值是基本类型的该方法会将他直接赋给target对象
+
+* source对象中的属性值是对象的(引用类型)，该方法采用的是浅拷贝(地址)，因此如果改变源对象source中的对象属性中某个值，那么target中的该对象属性也会相应的改变
+
+* deep clone的方法为JSON.parse(JSON.stringify(obj1))，即将源对象进行一个转换(obj->string->obj)后再赋值
+
+* 语法
+
+```javascript
+Object.assign(target,...source)
+```
+
+[参考资料](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+
+### 8.Object.defineProperty()
+
+* 语法
+
+```javascript
+Object.defineProperty(obj, prop, descriptor)
+```
+
+* descriptor是一个对象{},其中包含了configurable,enumerable,value,writable,get,set等设置属性
+
+[参考资料](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
+### 9.浅拷贝和深拷贝
+
+* 一般的对象赋值是浅拷贝
+* 深拷贝的方法
+	* JSON.parse(JSON.stringify(obj1)),这种方法会丢失了对象的constructor属性
+	* 第二种方法clone对象
+	```javascript
+	Object.prototype.clone = function () {
+		var Constructor = this.constructor;
+		var obj = new Constructor();
+
+		for (var attr in this) {
+			if (this.hasOwnProperty(attr)) {
+				if (typeof(this[attr]) !== "function") {
+					if (this[attr] === null) {
+						obj[attr] = null;
+					}
+					else {
+						obj[attr] = this[attr].clone();
+					}
+				}
+			}
+		}
+		return obj;
+	};
+	```
+	
+
+
+
+### 10.selectionStart
 
 ## 事件
+
 ### 1. onresize()
 * onresize 事件会在窗口或框架被调整大小时发生。
 
@@ -69,6 +137,14 @@
 * keydown事件触发针对不同的元素实现方法可能不一样，经过测验后在document、input、button上可以直接绑定，聚焦(鼠标点击)后即可触发
 * 如果想让div、span等标签进行触发则需要在第一条的基础上(鼠标点击聚焦)给元素增加tabindex属性，那么就可以触发keydown事件函数
 
+### 5.oninput事件
+* oninput事件可以实时监听input标签输入内容的动作，输入即触发
+* 运用oninput事件相比运用onchange事件的好处，onchange触发需要以下两个条件
+    * 当input捕获到焦点后，系统储存当前值
+	* 当input焦点离开后，判断当前值与之前存储的值是否不等，如果为true则触发onchange事件。
+	
+### 6.dblclick事件
+* 若元素即绑定了dblclick事件又绑定了mousedown事件，则双击鼠标两者都会触发，mousedown事件会触发一次
 
 ## 方法
 
@@ -217,18 +293,81 @@ arr.find(function callback(currentValue, index, array) {
 * stringObject.substr(start,length)
 * substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符
 
-### 2.indexOf()
+### 2.substring()
 
-* stringObject.indexOf(searchvalue,fromindex)
-* indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置
-* 注释：如果要检索的字符串值没出现，则该方法返回 -1
+* 和数组的slice类似
+* 语法
+```javascript
+str.substring(indexStart[, indexEnd])
+```
 
-### 3.split()
+### 3.charAt()
 
-* stringObject.split(separator,howmany)
-* split() 方法用于把一个字符串分割成字符串数组
+* 返回特定位置上的字符,从0开始
+* 语法
+```javascript
+str.charAt(index)
+```
 
-### 4.replace()
+### 4.charCodeAt()
+
+* 返回特定位置上的unicode码,即在charAt的基础上多了一个转unicode码的过程，从0开始
+* 语法
+```javascript
+str.charCodeAt(index)
+```
+
+### 5.fromCharCode()
+
+* fromCharCode()中的入参是Unicode码，方法调用后返回字符串
+* fromCharCode()是String上的静态方法，不是原型上的，他会直接返回一个字符串，而不是一个字符串object
+* 语法
+```javascript
+String.fromCharCode(num1[, ...[, numN]])
+```
+
+### 6.indexOf()
+
+* indexOf()方法可返回某个指定的字符串值在字符串中首次出现的位置，当单个字符时与charAt方法相反，不过indexOf也可以是一个字符串
+* 如果要检索的字符串值没出现，则该方法返回 -1
+* 语法
+```javascript
+stringObject.indexOf(searchvalue,fromindex)
+```
+
+### 7.concat()
+
+* concat()方法和数组的concat()的方法一致，将多个数组组合成一个
+* 返回值为全部拼装完成的最终的那一个
+* 语法
+```javascript
+str.concat(string2[, string3, ..., stringN])
+```
+
+### 8.split()
+
+* split() 方法用于把一个字符串分割成字符串数组，有点反join()的意思
+* 语法
+```javascript
+str.split([separator[, limit]])
+```
+
+### 9.macth()和正则对象的exec()
+
+* macth()方法在str中查找正则的匹配，返回一个数组
+* 如果有g全局标志,那么match()返回的数组保存的是所有匹配的内容，不包过子匹配(正则中含有子集( ))
+* 如果没有g全局标志，macth()方法会进行子匹配(正则中含有子集( ))，那么返回的数组的第一个元素为匹配最完整的字符串，然后依次是子集，数组的第二个元素为匹配的第一个子集，数组的第三个元素为匹配的第二个子集，依次类推
+* 语法
+```javascript
+str.match(regexp)
+regexp.match(str)
+```
+* exec()方法和match()的作用类似，也是用来进行匹配的
+* 如果正则没有子集，那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串，如果没有匹配则返回null
+* exec永远只返回第一个匹配，即使是指定了g的情况下，而match在正则指定了g属性的时候，会返回所有匹配
+
+
+### 10.replace()
 
 * replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
 * stringObject.replace(regexp/substr,replacement)
@@ -240,10 +379,15 @@ document.write(str.replace(/Microsoft/, "W3School"))
 </script>
 ```
 
-### 5.exec()和match()
-* exec() 方法用于检索字符串中的正则表达式的匹配。
-* RegExpObject.exec(string)
-* 返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null
+### 11.search()和正则对象的test()
+
+* search()方法是用来查找匹配的子字符串，返回值为stringObject 中第一个与 regexp 相匹配的子串的起始位置，没有则返回-1
+* test()方法是是否存在匹配的子字符串，有的话返回true，没有的话返回false
+* 语法
+```javascript
+str.search(regexp)
+regexp.test(str)
+```
 
 ### 其他常用的方法
 

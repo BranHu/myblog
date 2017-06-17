@@ -28,7 +28,7 @@
 
 #### 1.标签内写入事件
 
-```
+```javascript
 var html = `<div onclick='click(event,"${this.attr}")'></div>`
 ```
 
@@ -39,6 +39,28 @@ var html = `<div onclick='click(event,"${this.attr}")'></div>`
 #### 4.因此如果大括号内部是一个字符串，将会原样输出
 
 #### 5.模板字符串之中还能调用函数(函数要有返回值)
+
+```javascript
+var html = `<div>${createDiv()}</div>`
+```
+
+#### 6.在运用模板字符串来写html字符串时，可利用${}来往里面插入多个标签字符串，插入的js代码只要是标签数组即可
+
+```javascript
+var html = `<table>${arr.map((val,i)=>`<tr>val</tr>`)}</table>`
+//如果arr未知长度，则可在外部定义好标签数组后引入即可
+var trArr = [`<tr>1</tr>`,`<tr>2</tr>`...];
+var html = `<table>${trArr}</table>`
+```
+
+#### 7.标签中的具有value属性的元素，比如input,option等，在写模板字符串时value值要被引号括起来，因为如果value值有空格会只读取空格前的value值
+
+```javascript
+var html = `<input type=test value="${abc 123}"></input>`
+
+var html = `<input type=test value="abc 123"></input>`
+```
+
 
 ## promise
 
