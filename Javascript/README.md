@@ -39,6 +39,8 @@
     ![](for-answer.png)
 * 闭包记住两种情况，一个是函数当作值传递，一个是返回函数
 
+* 若想利用单例形成闭包需要在全局作用域下，如果在一个函数作用域内是形成不了的
+
 ### 4.this
 * 默认绑定
 * 隐式绑定
@@ -53,8 +55,74 @@
 
 ### 6.argument
 
+### 7.Object.assign()
+
+* Object.assign()方法可以将多个对象的属性值拷贝到target对象上，并且返回target
+
+* 如果拷贝的属性值名有相同的，则会覆盖，即Merging objects with same properties
+
+* 拷贝的值要是可枚举的，如果设置某值不枚举，则不会被拷贝
+
+* source对象中的属性值是基本类型的该方法会将他直接赋给target对象
+
+* source对象中的属性值是对象的(引用类型)，该方法采用的是浅拷贝(地址)，因此如果改变源对象source中的对象属性中某个值，那么target中的该对象属性也会相应的改变
+
+* deep clone的方法为JSON.parse(JSON.stringify(obj1))，即将源对象进行一个转换(obj->string->obj)后再赋值
+
+* 语法
+
+```javascript
+Object.assign(target,...source)
+```
+
+[参考资料](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+
+### 8.Object.defineProperty()
+
+* 语法
+
+```javascript
+Object.defineProperty(obj, prop, descriptor)
+```
+
+* descriptor是一个对象{},其中包含了configurable,enumerable,value,writable,get,set等设置属性
+
+[参考资料](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
+### 9.浅拷贝和深拷贝
+
+* 一般的对象赋值是浅拷贝
+* 深拷贝的方法
+	* JSON.parse(JSON.stringify(obj1)),这种方法会丢失了对象的constructor属性
+	* 第二种方法clone对象
+	```javascript
+	Object.prototype.clone = function () {
+		var Constructor = this.constructor;
+		var obj = new Constructor();
+
+		for (var attr in this) {
+			if (this.hasOwnProperty(attr)) {
+				if (typeof(this[attr]) !== "function") {
+					if (this[attr] === null) {
+						obj[attr] = null;
+					}
+					else {
+						obj[attr] = this[attr].clone();
+					}
+				}
+			}
+		}
+		return obj;
+	};
+	```
+	
+
+
+
+### 10.selectionStart
 
 ## 事件
+
 ### 1. onresize()
 * onresize 事件会在窗口或框架被调整大小时发生。
 
@@ -69,25 +137,33 @@
 * keydown事件触发针对不同的元素实现方法可能不一样，经过测验后在document、input、button上可以直接绑定，聚焦(鼠标点击)后即可触发
 * 如果想让div、span等标签进行触发则需要在第一条的基础上(鼠标点击聚焦)给元素增加tabindex属性，那么就可以触发keydown事件函数
 
+### 5.oninput事件
+* oninput事件可以实时监听input标签输入内容的动作，输入即触发
+* 运用oninput事件相比运用onchange事件的好处，onchange触发需要以下两个条件
+    * 当input捕获到焦点后，系统储存当前值
+	* 当input焦点离开后，判断当前值与之前存储的值是否不等，如果为true则触发onchange事件。
+	
+### 6.dblclick事件
+* 若元素即绑定了dblclick事件又绑定了mousedown事件，则双击鼠标两者都会触发，mousedown事件会触发一次
 
 ## 方法
 
 ### 数组的方法
 
 [参考文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-#### 1.pop()
+### 1.pop()
 
 * pop() 方法用于删除并返回数组的最后一个元素
 * arrayObject.pop()
 * pop() 方法将删除 arrayObject 的最后一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 pop() 不改变数组，并返回 undefined 值
 
-#### 2.shift()
+### 2.shift()
 
 * shift() 方法用于删除并返回数组的第一个元素
 * arrayObject.shift()
 * shift() 方法将删除 arrayObject 的第一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 shift() 不改变数组，并返回 undefined 值
 
-#### 3.slice()
+### 3.slice()
 
 * slice() 方法可从已有的数组中返回选定的元素
 * arrayObject.slice(start,end)
@@ -95,7 +171,7 @@
 * 不包含最后一个元素，即end对应的元素
 * 不写end，即没有结尾，指一直到数组的最后一个元素且包含最后一个元素
 
-#### 4.join()
+### 4.join()
 
 * 所的数组元素被转换成字符串，再用一个分隔符将这些字符串连接起来。如果元素是undefined 或者null， 则会转化成空字符串
 * 例子
@@ -107,7 +183,7 @@ var myVar3 = a.join(' + '); // myVar3的值变为"Wind + Rain + Fire"
 var myVar4 = a.join('');    // myVar4的值变为"WindRainFire"
 ```
 
-#### 5.map()
+### 5.map()
 
 * map() 方法返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。
 * map 方法会给原数组中的每个元素都顺序调用一次 callback 函数。callback 每次执行后的返回值（包括undefined组合起来形成一个新数组。 callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。
@@ -119,7 +195,7 @@ var roots = numbers.map(Math.sqrt);
 //roots的值为[1, 2, 3], numbers的值仍为[1, 4, 9]
 ```
 
-#### 6.forEach()
+### 6.forEach()
 
 * 数组的迭代器，和map()类似，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 主要需要研究回调函数
@@ -131,7 +207,7 @@ arr.forEach(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 7.filter()
+### 7.filter()
 
 * 数组的过滤器(也是迭代器，一个个元素的比较)，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 返回值就是过滤筛选出来的数组
@@ -144,7 +220,7 @@ arr.filter(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 8.every()
+### 8.every()
 
 * 数组的检查器(和filter比较类似)，入参是一个回调函数（对数组的每个元素都会调用该元素）和一个可选的参数thisArg(用来显示的指定回调函数中的this)
 * 返回值是true和false
@@ -157,19 +233,19 @@ arr.filter(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 9.concat()
+### 9.concat()
 
 * concat() 方法将多个数组组合成一个
 * new_array = old_array.concat(value1[, value2[, ...[, valueN]]])
 
-#### 10.fill()
+### 10.fill()
 
 * concat() 方法将一个数组内的元素部分进行替换，返回替换了的数组
 * arr.fill(value)
 * arr.fill(value, start)
 * arr.fill(value, start, end)
 
-#### 11.find()
+### 11.find()
 
 * find() 方法和filter方法类似，但是find是找到符合条件的第一个元素并返回该元素，相当于找到该元素就中断迭代了，而filter()是遍历，将全部的都寻找出来组成数组返回
 * 语法
@@ -179,7 +255,7 @@ arr.find(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 12.some()
+### 12.some()
 
 * some() 方法和every()方法类似，不同处是只要arr中有一个元素符合条件的some的返回值就是true，而every却要保证所有的元素都要符合要求
 * 语法
@@ -189,14 +265,14 @@ arr.find(function callback(currentValue, index, array) {
 }[, thisArg]);
 ```
 
-#### 13.splice()
+### 13.splice()
 
 * splice()方法是向数组中添加元素或删除元素
 * arr.sort()
 * arr.sort(compareFunction)
 * 入参start是数组操作的起点，入参deleteCount是要删除元素的个数，入参item是添加的元素
 
-#### 14.sort()
+### 14.sort()
 
 * sort()方法是将数组进行排序
 * arr.sort()
@@ -204,11 +280,11 @@ arr.find(function callback(currentValue, index, array) {
 * 如果没有compareFunction的时候，sort()方法比较的依据是将数组中的元素转换为字符串(不论是对象、整型还是浮点型)，依据字符串的unicode值来进行排序
 * 如果有compareFuction，当compareFunction(a,b)的返回值<0时，a comes first，反之当compareFunction(a,b)的返回值>0时，b comes first，当相等时，a和b的位置保持不变
 
-#### 15.indexOf()
+### 15.indexOf()
 
-#### 16.reverse()
+### 16.reverse()
 
-#### 17.includes()
+### 17.includes()
 
 ### 字符串的方法
 
@@ -217,18 +293,81 @@ arr.find(function callback(currentValue, index, array) {
 * stringObject.substr(start,length)
 * substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符
 
-### 2.indexOf()
+### 2.substring()
 
-* stringObject.indexOf(searchvalue,fromindex)
-* indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置
-* 注释：如果要检索的字符串值没出现，则该方法返回 -1
+* 和数组的slice类似
+* 语法
+```javascript
+str.substring(indexStart[, indexEnd])
+```
 
-### 3.split()
+### 3.charAt()
 
-* stringObject.split(separator,howmany)
-* split() 方法用于把一个字符串分割成字符串数组
+* 返回特定位置上的字符,从0开始
+* 语法
+```javascript
+str.charAt(index)
+```
 
-### 4.replace()
+### 4.charCodeAt()
+
+* 返回特定位置上的unicode码,即在charAt的基础上多了一个转unicode码的过程，从0开始
+* 语法
+```javascript
+str.charCodeAt(index)
+```
+
+### 5.fromCharCode()
+
+* fromCharCode()中的入参是Unicode码，方法调用后返回字符串
+* fromCharCode()是String上的静态方法，不是原型上的，他会直接返回一个字符串，而不是一个字符串object
+* 语法
+```javascript
+String.fromCharCode(num1[, ...[, numN]])
+```
+
+### 6.indexOf()
+
+* indexOf()方法可返回某个指定的字符串值在字符串中首次出现的位置，当单个字符时与charAt方法相反，不过indexOf也可以是一个字符串
+* 如果要检索的字符串值没出现，则该方法返回 -1
+* 语法
+```javascript
+stringObject.indexOf(searchvalue,fromindex)
+```
+
+### 7.concat()
+
+* concat()方法和数组的concat()的方法一致，将多个数组组合成一个
+* 返回值为全部拼装完成的最终的那一个
+* 语法
+```javascript
+str.concat(string2[, string3, ..., stringN])
+```
+
+### 8.split()
+
+* split() 方法用于把一个字符串分割成字符串数组，有点反join()的意思
+* 语法
+```javascript
+str.split([separator[, limit]])
+```
+
+### 9.macth()和正则对象的exec()
+
+* macth()方法在str中查找正则的匹配，返回一个数组
+* 如果有g全局标志,那么match()返回的数组保存的是所有匹配的内容，不包过子匹配(正则中含有子集( ))
+* 如果没有g全局标志，macth()方法会进行子匹配(正则中含有子集( ))，那么返回的数组的第一个元素为匹配最完整的字符串，然后依次是子集，数组的第二个元素为匹配的第一个子集，数组的第三个元素为匹配的第二个子集，依次类推
+* 语法
+```javascript
+str.match(regexp)
+regexp.match(str)
+```
+* exec()方法和match()的作用类似，也是用来进行匹配的
+* 如果正则没有子集，那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串，如果没有匹配则返回null
+* exec永远只返回第一个匹配，即使是指定了g的情况下，而match在正则指定了g属性的时候，会返回所有匹配
+
+
+### 10.replace()
 
 * replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
 * stringObject.replace(regexp/substr,replacement)
@@ -240,25 +379,30 @@ document.write(str.replace(/Microsoft/, "W3School"))
 </script>
 ```
 
-### 5.exec()和match()
-* exec() 方法用于检索字符串中的正则表达式的匹配。
-* RegExpObject.exec(string)
-* 返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null
+### 11.search()和正则对象的test()
+
+* search()方法是用来查找匹配的子字符串，返回值为stringObject 中第一个与 regexp 相匹配的子串的起始位置，没有则返回-1
+* test()方法是是否存在匹配的子字符串，有的话返回true，没有的话返回false
+* 语法
+```javascript
+str.search(regexp)
+regexp.test(str)
+```
 
 ### 其他常用的方法
 
-#### 1. Window.open()
+### 1. Window.open()
 
 * open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口
 * window.open(URL,name,features,replace)
 * 注：open()中的入参代表意思以及窗口的一些属性配置（比如大小、位置）需详查W3C。另，窗口的属性可以在入参features中进行配置
 
-#### 2. dateObj.valueOf()
+### 2. dateObj.valueOf()
 
 * Date的对象的valueOf()方法返回的是从1970年1月1日0时0分0秒到当前的毫秒数
 * dateObj.valueOf()的作用和Date.prototype.getTime()方法一样
 
-#### 5.instanceof()
+### 5.instanceof()
 * 在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回 “object”。这就需要用到instanceof来检测某个对象是不是另一个对象的实例。
 另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。<br>例如：
 ```javascript
@@ -280,7 +424,7 @@ console.log(Foo instanceof Function);//true
 console.log(Foo instanceof Foo);//false
 ```
 
-#### 7.hasOwnProperty()
+### 7.hasOwnProperty()
 
 * 语法：object.hasOwnProperty(proName)
 

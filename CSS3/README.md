@@ -164,8 +164,6 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 	* css中还有overflow-x和overflow-y，它们具体定义的是x轴（左右）、y轴（上下）的显示方式
 	* overflow-x:scroll，如果溢出元素内容区域的话，下方会出现滚轮
 	* overflow-y:scroll, 如果溢出元素内容区域的话，右侧会出现滚轮
-    
-。
     
 ### 图片背景大小属性
 
@@ -177,6 +175,24 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
 * x,y
     * 通过x,y的值直接对背景图片进行定位
+
+### table中单元格border相邻边框合并
+
+* border-collapse:border-collapse/collapse/inherit
+
+### 文字的换行 
+
+* word-wrap: normal|break-word;
+
+* word-wrap属性允许长单词换行到下一行,即在单词内进行断句，防止字符串太长而找不到它的自然断句点时产生溢出
+
+* word-break: normal|break-all|keep-all;
+
+* word-break属性在恰当的断字点进行换行
+
+### overflow-wrap:normal | break-word
+
+* 和word-wrap一样
 	
 ### float浮动及clear的理解
 
@@ -206,3 +222,30 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 ### 2.自定义单选框
 
 * 该样式用到了`<label>`的`for`属性，同时也运用到了伪类`::before`和`::after`,以及`:checked`选择器。详见[css3.html](https://github.com/BranHu/myblog/blob/master/CSS3/css3.html)
+
+### 3.让div,span等标签也能触发onkeydown事件，需要在这些标签上添加tabindex属性
+
+* tabindex 属性规定当使用 "tab" 键进行导航时元素的顺序
+
+* document可直接触发onkeydown事件
+
+### 4.去掉textarea右下角的角标
+
+* resize: none|both|horizontal|vertical;
+
+* 可以给div添加resize属性让其右下角标并且可以resize
+
+### 5.width和height的继承
+
+* 块级元素的width和height会继承父元素的width和height，即100%
+
+* 行内元素的width和height不会继承
+
+### 6.居中定位
+
+* postion:fixed;left:50%;top:50%;
+
+* transform:translate(50%,50%);
+
+### 7.行内元素inline竖向上会以文字为基准，如果需要对齐，可以设置vertical-align
+

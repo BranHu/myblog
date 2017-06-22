@@ -16,6 +16,7 @@
 	**即为第二个return的div，也就是闭包形成的div。如果不执行匿名函数，而是给变量
 	**createLoginLayer赋值一个函数，那么在step1调用时，loginLayer为返回的函数，
 	**而不是div
+	**3.闭包的创建环境(函数表达式创建)要在全局作用域下，而不能是好几层作用域内创建函数表达式
 	*/
 	var createLoginLayer = (function(){
 		var a=0;

@@ -33,7 +33,7 @@ const render = (Component) => {
 render(FilterableProductTable);
 
 // Hot Module Replacement API
-//不要可行？？需要确定,先暂时不用
+//可以不需要
 if (module.hot) {
   // module.hot.accept('./src/app.js',()=>function(){
   // 	render(App);

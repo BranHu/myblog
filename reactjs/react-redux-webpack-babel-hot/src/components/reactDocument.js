@@ -48,7 +48,7 @@ class ProductTable extends React.Component {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Name123</th>
             <th>Price</th>
           </tr>
         </thead>
