@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routhu from './routes/index.js';
+import Myapp from './routes/index.js';
 import { AppContainer } from 'react-hot-loader';
 
 
 ReactDOM.render(
     <AppContainer>
-        <Routhu />
+	  <Provider store={store}>
+	    <Myapp />
+	  </Provider>  
     </AppContainer>,document.getElementById('root'));

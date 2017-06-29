@@ -4,24 +4,28 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import createHistory from 'history/createHashHistory';
-const history = createHistory();
+
 
 import Home from '../views/Home';
 import Detail from '../views/Detail';
 
-class Routhu extends React.Component {
+class Myapp extends React.Component {
     render() {
         return (
-            <Router history={history}>
-                <div>
-                <Route path='/' component={Home} />
-                <Route path='/detail' component={Detail} />
-                </div>
+            <Router>
+               <div>
+                <ul>
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/about">Detail</Link></li>
+                </ul>
+
+                <Route exact path="/" component={Home}/>
+                <Route path="/about" component={Detail}/>
+              </div>
             </Router>
         )
     }
 
 }
 
-export default Routhu;
+export default Myapp;
