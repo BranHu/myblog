@@ -96,24 +96,37 @@ Object.defineProperty(obj, prop, descriptor)
 	* JSON.parse(JSON.stringify(obj1)),这种方法会丢失了对象的constructor属性
 	* 第二种方法clone对象
 	```javascript
-	Object.prototype.clone = function () {
-		var Constructor = this.constructor;
-		var obj = new Constructor();
+	function clone(obj) {
+		// Handle the 3 simple types, and null or undefined
+		if (null == obj || "object" != typeof obj) return obj;
 
-		for (var attr in this) {
-			if (this.hasOwnProperty(attr)) {
-				if (typeof(this[attr]) !== "function") {
-					if (this[attr] === null) {
-						obj[attr] = null;
-					}
-					else {
-						obj[attr] = this[attr].clone();
-					}
-				}
-			}
+		// Handle Date
+		if (obj instanceof Date) {
+			var copy = new Date();
+			copy.setTime(obj.getTime());
+			return copy;
 		}
-		return obj;
-	};
+
+		// Handle Array
+		if (obj instanceof Array) {
+			var copy = [];
+			for (var i = 0, var len = obj.length; i < len; ++i) {
+				copy[i] = clone(obj[i]);
+			}
+			return copy;
+		}
+
+		// Handle Object
+		if (obj instanceof Object) {
+			var copy = {};
+			for (var attr in obj) {
+				if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+			}
+			return copy;
+		}
+
+		throw new Error("Unable to copy obj! Its type isn't supported.");
+	}
 	```
 	
 
@@ -286,6 +299,17 @@ arr.find(function callback(currentValue, index, array) {
 
 ### 17.includes()
 
+### 18.reduce()
+
+* 累计计算，将数组转换为单一的值(二维数组转换为一维数组)
+* 入参为一个回调函数，callback(accumulator,currentValue,currentIndex,index)
+* 语法
+```javascript
+arr.reduce(callback[, initialValue])
+
+var result = [0, 1, 2, 3, 4].reduce( (prev, curr) => prev + curr );
+```
+
 ### 字符串的方法
 
 ### 1.substr()
@@ -401,6 +425,40 @@ regexp.test(str)
 
 * Date的对象的valueOf()方法返回的是从1970年1月1日0时0分0秒到当前的毫秒数
 * dateObj.valueOf()的作用和Date.prototype.getTime()方法一样
+
+### 3. Object.keys(json)
+
+* 如果想获取json的长度，像数组一样取length属性是不行的
+* Object.keys(json)会将json的keys(属性)取出来，返回一个数组
+```javascript
+var json = {
+	name: 'hujun',
+	age: '29',
+	hobby: 'basketball',
+}
+console.log(json.length);  //undefined
+var arr = Object.keys(json);  //["name","age","hobby"]
+console.log(arr.length)   //3
+```
+
+### 4.js减法的类型转换
+
+* 如果两个操作符都是数值, 则执行常规的算术减法操作，并返回结果
+* 如果有一个操作数是NAN， 则结果也是NaN
+* 如果有一个操作数是字符串、布尔值、null、undefined则先在后台调用Number()方法将其转换为数值, 然后在根据根据前面的规则进行减法计算，如果转换的结果是NaN, 则减法的结果就是NaN。
+* 如果有一个操作数是对象，则调用对象的 valueof() 方法以取得该方法返回后的值，如果得到的值是NaN,则减法的结果就是NaN, 如果对象没有valueOf()方法，则调用其toString()方法并将得到的字符串转为数值。
+
+```javascript
+var res = 5 - true;  //4    因为true被转换成1了
+var res = NaN - 1;   //NaN
+var res = 5 - 2;     //3
+var res = 5 -"";    // 5    因为空字串被转换成0了
+var res = 5 - "2";   //3   因为字符串2被转成数字2了
+var res = 5 - null;   //5  因为null 被转换成数值0了
+
+// 在js中null、""、false 都可以被转化成数字0
+// undefined 转成数值是 NaN
+```
 
 ### 5.instanceof()
 * 在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回 “object”。这就需要用到instanceof来检测某个对象是不是另一个对象的实例。
