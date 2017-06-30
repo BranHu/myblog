@@ -11,8 +11,9 @@
   - [overflow](#overflow)
   - [图片背景大小属性](#图片背景大小属性)
   - [float浮动及clear的理解](#float浮动及clear的理解)
-  - [input](#input中容易遗忘的属性)
+  - [input中容易遗忘的属性](#input中容易遗忘的属性)
 - [css中的技巧](#css中的技巧)
+- [bug](#bug)
 
 ## 元素位置重叠的问题
 
@@ -75,6 +76,8 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
 [测试代码](https://github.com/BranHu/test-for-learn/blob/master/css3-flex.html)
 
+### 设置在容器上的属性
+
 一般常用的属性如下，可以满足一般布局的要求，均是设置在flex容器上的。另外还有设置子元（项目）的一些属性，他们一般定义了子元素（项目）的排列顺序和充填放大缩小比例，在具体要求时可以查看文档。
 
 * display: flex
@@ -115,6 +118,14 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
     * flex-start | flex-end | center | space-between | space-around | stretch
 	* 1.align-content 属性定义了多根轴线的对齐方式(即有多行)。如果项目只有一根轴线，该属性不起作用(横向轴的) 
+
+### 设置在元素上的属性
+
+* flex-grow
+
+	* <number>
+	* 填数字即可，有点想bootstrap的栅格排列
+	* 会依据数字的大小均分元素，大的占的份额大，小的占的份额小
 
 ## css中的选择器
 
@@ -275,3 +286,15 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 ### 9.纯css实现表单验证 [详见](https://github.com/BranHu/myblog/blob/master/CSS3/input-email.html)
 
 * input:invalid + label:before { content:''...}
+
+## bug
+
+### 1.行内元素叠在一起中间会显示一定的空格
+
+* 原因：行内元素之间在换行的时候会产生换行符号，这个宽度是小于一个空格的
+* 解决办法：把换行去掉，将行内元素写在一行里面；margin-left为负值
+
+### 2.img底部有一定的间隙
+
+* 行内元素竖向上默认的是以字体的baseline基线为基准的，而字体的基线并不是以最底端为基准，往往会多出一点
+* 给img设置样式vertical-align:bottom;将img的父元素的fontsize设置为0
