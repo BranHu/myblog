@@ -11,6 +11,7 @@
   - [overflow](#overflow)
   - [图片背景大小属性](#图片背景大小属性)
   - [float浮动及clear的理解](#float浮动及clear的理解)
+  - [input](#input中容易遗忘的属性)
 - [css中的技巧](#css中的技巧)
 
 ## 元素位置重叠的问题
@@ -164,7 +165,23 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 	* css中还有overflow-x和overflow-y，它们具体定义的是x轴（左右）、y轴（上下）的显示方式
 	* overflow-x:scroll，如果溢出元素内容区域的话，下方会出现滚轮
 	* overflow-y:scroll, 如果溢出元素内容区域的话，右侧会出现滚轮
-    
+
+### input中容易遗忘的属性
+
+* required
+
+	* required 属性规定必需在提交之前填写输入字段。
+	
+	* 其由对应的伪类 input:required
+	
+* optional
+
+	* optional 属性规定为可选属性。
+	
+	* 其有对应的伪类 input:optional 
+	
+* input:in-range,input:out-of-range两个伪类结合:before中的content可以验证内容是否超出限制
+	 
 ### 图片背景大小属性
 
 * cover
@@ -249,3 +266,12 @@ html文档中的元素默认处于普通流（normal flow）中，也就是说�
 
 ### 7.行内元素inline竖向上会以文字为基准，如果需要对齐，可以设置vertical-align
 
+### 8.css美化checkbox和radio [详见](https://github.com/BranHu/myblog/blob/master/CSS3/checkbox-radio.html)
+
+* input:checked + label:before { content:''... }
+
+* label的for属性及其对应的id一一对应特性
+
+### 9.纯css实现表单验证 [详见](https://github.com/BranHu/myblog/blob/master/CSS3/input-email.html)
+
+* input:invalid + label:before { content:''...}

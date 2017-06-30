@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		input[type='email']:invalid + label::before {
+			content: '表单输入失败';
+		}
+		input[type='number']:out-of-range + label::before {
+			content: '数字超出了';
+		}
+		input[type='nubmer']:in-range + label::before {
+			content: '数字在范围当中'
+		}
+	</style>
+</head>
+<body>
+	<input type="email" name="">
+	<label></label>
+	<input type="number" name="" min="2" max="20" step="2" value="4">
+	<label></label>
+</body>
+</html>
