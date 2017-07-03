@@ -9,6 +9,7 @@
 - [generator](#generator)
 - [class](#class类)
 - [fetch](#fetch)
+- [解构赋值](#解构赋值)
 
 ## 箭头函数
 
@@ -102,4 +103,29 @@ var html = `<input type=test value="abc 123"></input>`
 
 	* 在第一个then是没有catch error，需要用response的ok来进行判断
 	* 如果想知道error的具体信息，可以充分对response这个返回的内容进行操作，如果是json对象的话，里面有status和statusText，具体描述了相应的结果
+
+## 解构赋值
+
+```javascript
+var json = {
+	name: 'hujun',
+	age: '29',
+	hobby: 'basketball'
+};
+var {name} = json;
+console.log(name);   // hujun
+
+var [,,third] = ["foo", "bar", "baz"];  
+console.log(third);   // baz
+
+var [head, ...tail] = [1, 2, 3, 4];  
+console.log(tail);    //[2,3,4]
+
+myFunction(...args);
+
+var arr = [1, 2, 3];
+var arr2 = [...arr];
+arr2.push(4);
+console.log(arr2)   //1,2,3,4
+```
 
