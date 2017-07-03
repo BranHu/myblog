@@ -4,6 +4,8 @@
 
 - [session和cookie](#session和cookie)
 - [长短轮询](#长短轮询)
+- [基于HTTP的RESTFUL](#基于HTTP的RESTFUL)
+- [TCP&IP](#TCP&IP)
 
 ## session和cookie
 
@@ -40,9 +42,7 @@
 * 9.长短轮询和长短连接的区别
     
     * 第一个区别是决定的方式，一个TCP连接是否为长连接，是通过设置HTTP的Connection Header来决定的，而且是需要两边都设置才有效。而一种轮询方式是否为长轮询，是根据服务端的处理方式来决定的，与客户端没有关系。
-    
-    * 第一个区别是决定的方式，一个TCP连接是否为长连接，是通过设置HTTP的Connection Header来决定的，而且是需要两边都设置才有效。而一种轮询方式是否为长轮询，是根据服务端的处理方式来决定的，与客户端没有关系。
-    
+       
 ## 基于HTTP的RESTFUL
 
 [参考资料](http://www.cnblogs.com/loveis715/p/4669091.html)
@@ -85,5 +85,38 @@ TCP/IP的理解首先要先理解 **TCP/IP五层模型的协议** 和 **OSI七�
     
     * 下面是一些常见的服务对应的端口：ftp：23，telnet：23，smtp：25，dns：53，http：80，https：443
     
-## URL的理解
+## 浏览器输入url之后的过程
 
+### URL的理解
+
+* 协议
+
+* DNS域名
+
+* 端口
+
+* 资源
+
+### 流程
+
+## 报文的结构
+
+* 开始行
+
+	* 请求报文是由方法、URL、HTTP版本三个元素组成
+	* GET /csrfToken HTTP/1.1
+	* 相应报文是由HTTP版本、状态码两个元素组成
+	* HTTP/1.1 200 OK      
+	* HTTP/1.1 404 Not Found
+
+* 首部行
+	
+	* ![](http-header.png)
+	
+* 实体主体
+
+## 基本状态码
+
+* ![](statecode.png)
+
+## HTTP缓存
