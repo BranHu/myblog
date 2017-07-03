@@ -111,12 +111,12 @@ TCP/IP的理解首先要先理解 **TCP/IP五层模型的协议** 和 **OSI七�
 
 * 首部行
 	
-	* ![](http-header.png)
+![](http-header.png)
 	
 * 实体主体
 
 ## 基本状态码
 
-* ![](statecode.png)
+![](statecode.png)
 
 ## HTTP缓存
