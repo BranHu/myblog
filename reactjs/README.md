@@ -21,6 +21,10 @@
 - React-Router
 
 - Redux
+  - [action](#action)
+  - [store](#store)
+  - [reducer](#reducer)
+  - [connect](#connect)
   
 ## React
 
@@ -367,3 +371,44 @@ view即React中的组件，在引用了flux后组件部分就要进行一定的�
     )
   }
 ```
+
+## Redux
+
+### action
+
+* actions都是一些对象,有type和想传递的属性值,一般用actionCreator来进行创建,其实就是一个方法返回action对象
+
+### reducer
+
+* reducer为一个纯函数，将state和action进行一个对应
+
+* 在使用reducer的时候多联想Array.prototype.reduce()
+
+* 在写reducer的时候千万记住是不能改state的
+
+* reducer结构以一个switch为主
+
+* reducer可能有很多，最后将他们都合并成一个
+
+### store
+
+* const store = createStore(reducer);
+
+* store.subscribe()
+
+* store.dispatch()
+
+* 创建了store后每分发一个action，相应的state就会发生变化
+
+### connect
+
+* mapStateToProps
+
+* mapDispatchToProps
+
+* mergeProps
+
+* 所有的组件都包含中<Provider>中
+
+* Provider 内的任何一个组件，如果需要使用 state 中的数据，就必须是「被 connect 过的」组件——使用 connect 方法对「你编写的组件（MyComp）」进行包装后的产物。
+
