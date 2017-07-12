@@ -55,7 +55,7 @@
     */
     Validator.prototype.add = function(dom, rule, errorMsg) {
         var ary = rule.split(':');
-        this.cache.push(function() {
+        this.cache.push(function() {   
             var strategy = ary.shift();
             ary.unshift(dom.value);
             ary.push(errorMsg);
@@ -64,15 +64,15 @@
     }
 
     /*
-    **循环validator的cache中的校验规则
+    **循环validator的cache中的校验规则---cache里面是函数
     */
     Validator.prototype.start = function() {
-        for (var i = 0, validataFunc; validataFunc = this.cache[i++];) {
+        for (var i = 0, cacheFuc; cacheFuc = this.cache[i++];) {
         	/*
         	**注意这里的validataFunc是this.cache数组中的函数，即上面push的
         	**而不是全局的validataFunc
             */
-            var msg = validataFunc();
+            var msg = cacheFuc();
             if (msg) {
                 return msg
             }

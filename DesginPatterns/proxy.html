@@ -33,12 +33,14 @@
      **关键:替身对象做的处理是重新new一个image,绑定onload事件，当onload事件未触发的时候,
      **由一张loading图片暂时显示，当onload事件触发后再替换loading图片
      */
-    var myImage = (function() var imgNode = document.createElement('img'); document.body.appendChild(imgNode);
-    return {
-        setSrc: function(src) {
-            imgNode.src = src;
+    var myImage = (function() {
+        var imgNode = document.createElement('img');
+        document.body.appendChild(imgNode);
+        return {
+            setSrc: function(src) {
+                imgNode.src = src;
+            }
         }
-    }
     })();
 
     var proxyImage = (function() {
@@ -54,7 +56,7 @@
         }
     })();
 
-    proxyImage.setSrc('...needImg.png');
+    proxyImage.setSrc('....needImg.png');
 
     /*
      **虚拟代理合并HTTP请求
