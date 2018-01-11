@@ -132,7 +132,10 @@ Object.defineProperty(obj, prop, descriptor)
 
 
 
-### 10.selectionStart
+### 10. selectionStart
+
+### 11. JS中递归算法运用for循环的注意点
+（1）递归算法的关键点是函数调用自身，当函数中有return或者break的时候，只会跳出该次函数，但是母函数及祖先函数并不会跳出，会继续执行，直到继续执行完。
 
 ## 事件
 
