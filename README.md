@@ -4,6 +4,7 @@
 - [Mysql](https://github.com/BranHu/myblog/tree/master/Mysql)
 - [Node](https://github.com/BranHu/myblog/tree/master/Node)
 - [Javascript](https://github.com/BranHu/myblog/tree/master/Javascript)
+- [DesginPatterns](https://github.com/BranHu/myblog/tree/master/DesginPatterns)
 - [JQuery](https://github.com/BranHu/myblog/tree/master/JQuery)
 - [JQueryUI](https://github.com/BranHu/myblog/tree/master/JQueryUI)
 - [CSS3](https://github.com/BranHu/myblog/tree/master/CSS3)
