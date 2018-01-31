@@ -10,6 +10,7 @@
 - [class](#class类)
 - [fetch](#fetch)
 - [解构赋值](#解构赋值)
+- [模块化系统](#模块化系统)
 
 ## 箭头函数
 
@@ -129,3 +130,11 @@ arr2.push(4);
 console.log(arr2)   //1,2,3,4
 ```
 
+## 模块化系统
+
+#### 1. export、import和export.default
+
+#### 2. es6中的模块系统与commonJS模块系统(node)的区别
+
+* commonJS模块系统不支持export.default默认导出
+* commonJS引入用的是require
