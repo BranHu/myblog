@@ -39,6 +39,10 @@
     ![](for-answer.png)
 * 闭包记住两种情况，一个是函数当作值传递，一个是返回函数
 
+* js中的事件机制
+    * [参考资料1](https://zhuanlan.zhihu.com/p/33058983)，[参考资料2](https://juejin.im/post/59e85eebf265da430d571f89)， [参考资料3](https://zhuanlan.zhihu.com/p/33087629)
+    
+
 * 若想利用单例形成闭包需要在全局作用域下，如果在一个函数作用域内是形成不了的
 
 ### 4.this

@@ -6,6 +6,9 @@
 - [长短轮询](#长短轮询)
 - [基于HTTP的RESTFUL](#基于HTTP的RESTFUL)
 - [TCP&IP](#TCP&IP)
+- [浏览器输入url之后的过程](#浏览器输入url之后的过程)
+- [基本状态码](#基本状态码)
+- [HTTP缓存](#HTTP缓存)
 
 ## session和cookie
 
@@ -120,3 +123,43 @@ TCP/IP的理解首先要先理解 **TCP/IP五层模型的协议** 和 **OSI七�
 ![](statecode.png)
 
 ## HTTP缓存
+
+## 跨域
+[参考资料](https://zhuanlan.zhihu.com/p/33132547)
+### 两个误区
+
+![](wrong.png)
+
+### 同源策略具体限制什么
+
+![](what.png)
+
+### 为什么会有同源策略
+
+![](why.png)
+
+### CORS
+
+![](cors1.png)
+
+![](cors2.png)
+
+### 为了配合cors来进行的nginx配置
+
+![](nginx.png)
+
+### JSONP
+
+![](jsonp.png)
+
+![](jsonp2.png)
+
+![](ajax.png)
+
+![](ajax2.png)
+
+### CSRF
+
+![](csrf.png)
+
+![](csrf2.png)
