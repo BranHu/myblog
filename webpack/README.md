@@ -23,4 +23,12 @@
 
 * webpack Dev Middleware
 
+### 2. 如何在vue和react等单页面中引入第三方js
+
+1. 首先在html中引入需要引入的第三方js
+2. 恰当的运用webpack的externals属性
+3. 在需要引入的组件内引入该第三方组件，通过import 引入
+4. 该组件内就可以直接使用了
+![](externals.png)
+
 
