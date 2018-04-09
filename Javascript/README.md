@@ -53,9 +53,12 @@
 
 ### 5.理解异步编程
 
-[http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html](http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html) 
-[http://developer.51cto.com/art/201609/516971.htm](http://developer.51cto.com/art/201609/516971.htm)<br>
-[https://segmentfault.com/a/1190000002999668](https://segmentfault.com/a/1190000002999668)
+1. [http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html](http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html) 
+2. [http://developer.51cto.com/art/201609/516971.htm](http://developer.51cto.com/art/201609/516971.htm)<br>
+3. [https://segmentfault.com/a/1190000002999668](https://segmentfault.com/a/1190000002999668)
+4. 个人理解的是，JS中有同步queue和异步queue，只有同步的代码队列全部执行完了才会执行异步的event queue。JS中大多数for循环不能与异步兼容，for循环是同步操作，即循环内的异步操作是等for跳出来后才去执行的。for循环中的异步可通过闭包来解决。有一些术语可以记住，memory heap, call stack, event loop, callback queue
+
+
 
 ### 6.argument
 
@@ -97,7 +100,17 @@ Object.defineProperty(obj, prop, descriptor)
 
 * 一般的对象赋值是浅拷贝
 * 深拷贝的方法
-	* JSON.parse(JSON.stringify(obj1)),这种方法会丢失了对象的constructor属性
+	* JSON.parse(JSON.stringify(object)), 这种方法给的弊端是：
+      * 这种方法会丢失了对象的constructor属性
+      * 运用这种方法要考虑JSON.stringify(序列化)的特点，因此这个object的属性都应该是可序列化的，若某个属性为function () {} 函数就不能实现拷贝
+      * JSON语法支持Number，String，Boolean，Null不支持undefined
+      * NaN，infinity 和 -infinity序列化的结果是Null
+      * JSON语法不支持函数
+      * 除了RegExp，Error对象，JSON支持其他所有对象
+      * 日期对象序列化是JSON格式字符串，但JSON.parse()依然保留字符串形态
+      * JSON.stringify只能序列化可枚举的自有属性
+      * 序列化(serialization)将对象的状态信息转换为可以存储或传输的形式如xml, json
+
 	* 第二种方法clone对象
 	```javascript
 	function clone(obj) {
@@ -133,9 +146,6 @@ Object.defineProperty(obj, prop, descriptor)
 	}
 	```
 	
-
-
-
 ### 10. selectionStart
 
 ### 11. JS中递归算法运用for循环的注意点
@@ -149,6 +159,13 @@ Object.defineProperty(obj, prop, descriptor)
 1. '.‘代表目前所在目录，此一般表示的是相对路径，当用‘./’表示相对路径时，‘./’是可以省略的。如：‘./foo/boo’与‘foo/boo’是等效的 
 2. ’..‘代表上一级目录
 3. ‘/’代表根目录，此一般表示的是绝对路径
+
+### 14. JS中哪些值为flase, 便于if判断
+1. JS中的false, 0, '', NaN, null, undefined都等价于false
+
+### 15. 元素前的'+'符号
+1. 某个元素前使用'+'可将其转换成Number类型(一般情况下)
+2. + new Date 将会调用Date.prototype上valueOf方法，Date的valueOf等于 getTime()
 
 ## 事件
 

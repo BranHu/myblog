@@ -1,6 +1,26 @@
 # Node.js
-## 一、基础知识
-### 1. node.js之模块
+
+## 目录
+
+- [基础知识](#基础知识)
+  - [node机理](#node机理)
+  - [node模块](#node模块)
+- [环境配置](#环境配置)
+  - [node下载及安装](#node下载及安装)
+  - [开发环境配置](#开发环境配置)
+  - [安装express框架](#安装express框架)
+  - [创建express项目](#创建express项目)
+  - [将模板更改为nunjucks](#将模板更改为nunjucks)
+- [node做爬虫基本思路](#node做爬虫基本思路)
+
+
+## 基础知识
+
+### node机理
+1. V8 引擎的作用是将js代码转成机器码
+2. libuv的作用是内部管理线程池，提供事件循环，异步网络IO， 文件系统IO
+
+### node模块
 
 * require 模块
 
@@ -22,8 +42,8 @@
 
 * file system 模块
 
-## 二、环境配置
-### 1. node.js下载及安装
+## 环境配置
+### node下载及安装
 * node.js下载网址
 
     * 在该网址下下载对应的node.js文件 [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
@@ -36,7 +56,7 @@
     
 ![](images/sublime.png)
 
-### 2. Sublime Node.js开发环境配置
+### 开发环境配置
 * 运行Sublime,菜单上找到Tools ——> Build System ——> new Build System
 
 * 文件中输入以下代码，并另存文件为NodeJs.sublime-build
@@ -72,14 +92,14 @@
 
 ![](images/test.png)
 
-### 3. 安装express框架
+### 安装express框架
 * 打开客户端，输入命令“npm install express -g”<br>
 ![](images/express.jpg)
 
 * 安装完后，继续输入命令安装express的命令工具“npm install -g express-generator” 
 ![](images/express-generator.png)
 
-### 4. 创建express项目
+### 创建express项目
 * 新建一个目录，客户端进入该目录
 
 * 输入命令“express  nodetest2"，创建了一个express项目，项目名称为nodetest2
@@ -100,13 +120,17 @@
 
 ![](images/express-project4.png)
 
-### 5. 将默认的ejs/jade模板更改为nunjucks
+### 将模板更改为nunjucks
 * 原来的模板设置为<br>
 ![](images/nunjucks1.png)
 
 * 现在需要在package.json中添加nunjucks依赖后，在app.js文件中的相应代码做如下修改
 ![](images/nunjucks3.png)
 
-## 三、node.js与Mysql的交互
+## node做爬虫基本思路
+基本思路是将网站上的html获取到，然后通过类jquery的方式对这个html进行操作
+1. 用node中内置的http模块请求需要爬的网页， 用到了response的data事件和end事件，获取buffer数据
+2. 用iconv-lite转码，将二进制buffer转成html字符串
+3. 用cheerio库来将转码后的字符串转成类客户端的dom结构，同时可通过jquery的方式(其api)来操作此数据
 ## 四、node.js与MongoDB的交互
 ## 五、node.js与Redis交互
