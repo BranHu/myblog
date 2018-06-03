@@ -167,6 +167,27 @@ Object.defineProperty(obj, prop, descriptor)
 1. 某个元素前使用'+'可将其转换成Number类型(一般情况下)
 2. + new Date 将会调用Date.prototype上valueOf方法，Date的valueOf等于 getTime()
 
+### 16. new Array(5), Array(5), Array.apply(null, {length: num})区别
+1. JS中新建一个数组的语法如下:
+```javascript
+[element0, element1, ..., elementN]
+new Array(element0, element1[, ...[, elementN]])
+new Array(arrayLength)
+```
+2. 因为Array是一个构造函数，因此也可以不用new，直接Array，即Array(5)是等价于于new Array(5)的
+3. Array(arrayLenth)创建出来的数组是一个只有长度属性没有初始化序列值的空数组
+4. {length: num}是一个类数组对象
+5. apply(,类数组)的第二个参数接受一个类数组对象作为参数
+6. Array.prototype.map 方法只针对于如下条件
+```javascript
+callback is invoked only for indexes of the array which have assigned values, including undefined. It is not called for missing elements of the array (that is, indexes that have never been set, which have been deleted or which have never been assigned a value).
+```
+7. apply, call 的第一个参数若为null
+```javascript
+if the method is a function in non-strict mode code, null and undefined will be replaced with the global object, and primitive values will be boxed.
+```
+8. Array.apply(null, {length,num})相当于将创建了一个长度为num，并且其中每个元素赋值为undifined的纯数组，这样该数组就可以放心的调用map方法了
+
 ## 事件
 
 ### 1. onresize()
