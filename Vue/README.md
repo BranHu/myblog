@@ -3761,3 +3761,8 @@ import { render, staticRenderFns } from "./test.vue?vue&type=template&id=084e301
 ```
 - webpack 中的 inline 格式的 loader 是从右至左进行逐步转换的，各 loader 通过 ! 分隔，?? 可以用来传递参数
 - 由上面的注释可知 test.vue 文件进行了两次 loader，一个是上面的第一条 lib 目录下的 index.js 文件，然后再是 templateLoader.js 文件
+- templateLoader.js
+- component-compiler-utils模块
+- compileTemplate
+- vue-template-es2015-compiler模块
+- buble.js
