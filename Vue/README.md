@@ -12,6 +12,7 @@
   - [directives自定义指令](#directives自定义指令)
   - [自定义v-model](#自定义v-model)
   - [vue源码解读](#vue源码解读)
+  - [vue-loader](#vue-loader)
 
 - Vue-Router
   - [keep-alive](#keep-alive)
@@ -3697,3 +3698,66 @@ function initWatch (vm, watch) {
   }
 }
 ```
+
+#### vue-loader 原理解析
+
+首先注意两个部分，一个是 vue-loader 中的 index.js, 另一个是 VueLoaderPlugin 插件（在 plugin.js 中）
+
+1. vue-loader 中的 index.js
+- 通过 parse 方法将捕获到的 .vue 文件转化成一个 json 格式的字符串，该 json 清晰的分离出三个属性分别是 template, script, styles
+```javascript
+  {
+    template: {
+      type: 'template',
+      content: '\n<div>hello world</div>\n',
+      start: 10,
+      attrs: {},
+      end: 113
+    },
+    script: {
+      type: 'script',
+      content: 'export default {\n  name: \'test\'\n}',
+      start: 147,
+      attrs: {},
+      end: 244
+    },
+    styles: {
+      type: 'style',
+      content: 'div {\n  color: red\n}',
+      start: 287,
+      attrs: [Object],
+      lang: 'less',
+      end: 371
+    },
+    customBlocks: []
+  }
+```
+- 这里还未将 .vue 文件中的 template 转换成 render 函数，会输入下面的格式
+```javascript
+import { render, staticRenderFns } from "./test.vue?vue&type=template&id=084e3018"
+```
+2. VueLoaderPlugin插件
+- 这个插件的作用就是在 webpack 运行的过程中进行一些定制化的操作
+- 将 vue-loader 中的转换，特别是 template 转 render 与 css-loader, babel-loader 等其他的 loader 进行合并造成链式的 loader
+```javascript
+  if (query.type === `template`) {
+    const cacheLoader = cacheDirectory && cacheIdentifier
+      ? [`cache-loader?${JSON.stringify({
+        cacheDirectory,
+        cacheIdentifier: hash(cacheIdentifier) + '-vue-loader-template'
+      })}`]
+      : []
+    const request = genRequest([
+      ...cacheLoader,
+      templateLoaderPath + `??vue-loader-options`,
+      ...loaders
+    ])
+    
+    // 这里的 request 最后就变为了 
+    // ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-		options!./src/test.vue?vue&type=template&id=084e3018
+
+    return `export * from ${request}`
+  }
+```
+- webpack 中的 inline 格式的 loader 是从右至左进行逐步转换的，各 loader 通过 ! 分隔，?? 可以用来传递参数
+- 由上面的注释可知 test.vue 文件进行了两次 loader，一个是上面的第一条 lib 目录下的 index.js 文件，然后再是 templateLoader.js 文件
