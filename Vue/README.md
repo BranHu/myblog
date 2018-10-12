@@ -69,6 +69,112 @@
 * 因为v-model是:value和@input的语法糖，所以自定式组件的子组件就需要:value和@input两块
 * 子组件中props的value来接受父组件v-model的赋值，然后在子组件中的input中有:value=value，然后再给@input绑定一个方法，最后一定要触发input，this.$emit('input')
 
+### vue-loader
+- templateLoader.js 中如下一段代码
+```javascript
+  const { compileTemplate } = require('component-compiler-utils')
+  ....
+  const compiler = options.compiler || require('vue-template-compiler')
+  ...
+  const finalOptions = {
+    source,
+    filename: this.resourcePath,
+    compiler,
+    compilerOptions,
+    // allow customizing behavior of vue-template-es2015-compiler
+    transpileOptions: options.transpileOptions,
+    transformAssetUrls: options.transformAssetUrls || true,
+    isProduction,
+    isFunctional,
+    optimizeSSR: isServer && options.optimizeSSR !== false
+  }
+
+  const compiled = compileTemplate(finalOptions)
+```
+- 从 vue-template-compiler 引入的 compiler 作为 component-compiler-utils 传入到 compileTemplate 中, component-compiler-utils 中的 index 文件有下面代码
+```javascript
+import {
+  compileTemplate,
+  TemplateCompileOptions,
+  TemplateCompileResult
+} from './compileTemplate'
+```
+- index 同级的 compileTemplate 文件
+可见 compileTemplate 主要调用的是 actuallyCompile，注意这里的 compiler 是之前传入的 finalOptions
+```javascript
+export function compileTemplate (
+  options: TemplateCompileOptions
+): TemplateCompileResult {
+  ...
+  if (preprocessor) {
+    ...
+  } else if (preprocessLang) {
+    ...
+  } else {
+    return actuallyCompile(options)
+  }
+}
+```
+- actuallyCompile(options)
+首先用 es6 的解构赋值将 templateLoader.js 中传入的各个属性值进行赋值, 最后将 compiler.compile 赋值给 compile 变量，然后调用这个 compile 方法生成 render 和 staticRenderFns 再解构赋值, 然后对生成的 render 和 staticRenderFns 进行字符串优化处理，这里用到了 vue-template-es2015-compiler 模块做 babel 的优化
+```javascript
+  const {
+    source,
+    compiler,
+    compilerOptions = {},
+    transpileOptions = {},
+    transformAssetUrls,
+    isProduction = process.env.NODE_ENV === 'production',
+    isFunctional = false,
+    optimizeSSR = false
+  } = options
+  
+  const compile = optimizeSSR && compiler.ssrCompile
+    ? compiler.ssrCompile
+    : compiler.compile
+    
+  let finalCompilerOptions = compilerOptions
+    
+  const {
+    render,
+    staticRenderFns,
+    tips,
+    errors
+  } = compile(source, finalCompilerOptions)
+  
+  ...
+  
+    const toFunction = (code: string): string => {
+      return `function (${isFunctional ? `_h,_vm` : ``}) {${code}}`
+    }
+
+    // transpile code with vue-template-es2015-compiler, which is a forked
+    // version of Buble that applies ES2015 transforms + stripping `with` usage
+    let code = transpile(
+      `var render = ${toFunction(render)}\n` +
+      `var staticRenderFns = [${staticRenderFns.map(toFunction)}]`,
+      finalTranspileOptions
+    ) + `\n`
+```
+- vue-template-compiler 中的 compiler
+vue-template-compiler 中的 compiler 实际上是来源自它的 build.js 文件，在 build.js 中有如下代码，那么在上面调用 compiler.compile 的时候即调用的这里的 compile 方法
+```
+...
+
+var ref = createCompiler(baseOptions);
+var compile = ref.compile;
+var compileToFunctions = ref.compileToFunctions;
+
+...
+
+exports.parseComponent = parseComponent;
+exports.compile = compile;
+exports.compileToFunctions = compileToFunctions;
+exports.ssrCompile = compile$1;
+exports.ssrCompileToFunctions = compileToFunctions$1;
+```
+
+
 ### Vue源码解读
 1. vnode 部分
 ```javascript
