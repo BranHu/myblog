@@ -160,11 +160,28 @@ export function compileTemplate (
 ```
 - vue-template-compiler 中的 compiler
 
-vue-template-compiler 中的 compiler 实际上是来源自它的 build.js 文件，在 build.js 中有如下代码，那么在上面调用 compiler.compile 的时候即调用的这里的 compile 方法
+vue-template-compiler 中的 compiler 实际上是来源自它的 build.js 文件，在 build.js 中有如下代码，那么在上面调用 compiler.compile 的时候即调用的这里的 compile 方法，函数调用的逻辑 compile => ref.compile => createCompiler => createCompilerCreator => createCompiler => compile
+注意这里有个技巧，在调用 createCompilerCreator(function baseCompile) 传入的 baseCompile 方法会在 createCompilerCreator 内部进行运用处理
 ```
 ...
+// 等价于 var createCompiler = function createCompiler (baseOptions) { ... }
+var createCompiler = createCompilerCreator(function baseCompile ( 
+  template,
+  options
+) {
+  var ast = parse(template.trim(), options);
+  if (options.optimize !== false) {
+    optimize(ast, options);
+  }
+  var code = generate(ast, options);
+  return {
+    ast: ast,
+    render: code.render,
+    staticRenderFns: code.staticRenderFns
+  }
+});
 
-var ref = createCompiler(baseOptions);
+var ref = createCompiler(baseOptions); // 等价
 var compile = ref.compile;
 var compileToFunctions = ref.compileToFunctions;
 
@@ -177,5 +194,44 @@ exports.ssrCompile = compile$1;
 exports.ssrCompileToFunctions = compileToFunctions$1;
 ```
 
+- createCompilerCreator 方法
 
+createCompilerCreator 这里用到闭包，返回 createCompiler
+```
+function createCompilerCreator (baseCompile) {  
+  return function createCompiler (baseOptions) {
+    function compile (
+      template,
+      options
+    ) {
+    
+      ...
 
+      var compiled = baseCompile(template, finalOptions);
+      if (process.env.NODE_ENV !== 'production') {
+        errors.push.apply(errors, detectErrors(compiled.ast));
+      }
+      compiled.errors = errors;
+      compiled.tips = tips;
+      return compiled
+    }
+
+    return {
+      compile: compile,
+      compileToFunctions: createCompileToFunctionFn(compile)
+    }
+  }
+}
+```
+注意这里的调用的传入的 baseCompile 方法
+```javascript
+const compiled = baseCompile(template, finalOptions)
+```
+仔细查看上方传入的 baseCompile 方法可以发现有3个核心的步骤
+```javascript
+  var ast = parse(template.trim(), options);  
+  if (options.optimize !== false) {
+    optimize(ast, options);
+  }
+  var code = generate(ast, options);
+```
