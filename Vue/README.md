@@ -270,4 +270,8 @@ const compiled = baseCompile(template, finalOptions)
     vm.$el = vm.__patch__(prevVnode, vnode);
   }
   ```
+  <br/>
 - `vm.__patch__(vm.$el, vnode, hydrating, false, vm.$options._parentElm, vm.$options._refElm)`
+    1. Vue.prototype.__patch__ = inBrowser ? patch : noop; 给vue的原型上添加__patch__方法，为全局变量patch
+    2. var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules }); patch为createPatchFunction
+- `function createPatchFunction (backend) `
