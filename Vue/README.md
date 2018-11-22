@@ -235,3 +235,39 @@ const compiled = baseCompile(template, finalOptions)
   }
   var code = generate(ast, options);
 ```
+
+#### Vue update
+
+- `Vue.prototype._update = function (vnode, hydrating)`
+  1. `_update` 是 `Vnode` 转 `dom` 的一个过渡，重新渲染dom，主要是调用了 `__patch__`，实际上最终是调用的 `createPatchFunction` 这个方法
+  2. 函数调用路径是 `vue.prototype.__patch__` ==> `createPatchFunction` ==> `return function patch () {}`
+  3. 好似给dom的重新渲染就像一个patch补丁一样打上去
+  4. 先判断是否是之前有mounted渲染过，如果有的话此时的_update就是更新dom，因此要触发beforeUpdate生命周期钩子函数
+  ```JavaScript
+  if (vm._isMounted) {
+    callHook(vm, 'beforeUpdate');
+  }
+  ```
+  5. 声明preEl和prevVnode来判断是否是初始的渲染还是修改更新的渲染，初始化的渲染执行`vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false,vm.$options._parentElm,vm.$options._refElm);`，更新的渲染执行`vm.$el = vm.__patch__(prevVnode, vnode);`
+  ```javascript
+  var prevEl = vm.$el;
+  var prevVnode = vm._vnode;
+  var prevActiveInstance = activeInstance;
+  activeInstance = vm; //
+  vm._vnode = vnode;
+  if (!prevVnode) {
+    // initial render
+    vm.$el = vm.__patch__(
+      vm.$el, vnode, hydrating, false /* removeOnly */,
+      vm.$options._parentElm,
+      vm.$options._refElm
+    );
+    // no need for the ref nodes after initial patch
+    // this prevents keeping a detached DOM tree in memory (#5851)
+    vm.$options._parentElm = vm.$options._refElm = null;
+  } else {
+    // updates
+    vm.$el = vm.__patch__(prevVnode, vnode);
+  }
+  ```
+- `vm.__patch__(vm.$el, vnode, hydrating, false, vm.$options._parentElm, vm.$options._refElm)`
