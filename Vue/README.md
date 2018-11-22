@@ -236,6 +236,10 @@ const compiled = baseCompile(template, finalOptions)
   var code = generate(ast, options);
 ```
 
+
+#### Vue render
+`function createComponent (Ctor, data, context, children, tag)`
+  1. 在_createElement函数中当要渲染的是组件的时候通过这种方法来执行`vnode = createComponent(Ctor, data, context, children, tag);`或者 `vnode = createComponent(tag, data, context, children);`
 #### Vue update
 
 - `Vue.prototype._update = function (vnode, hydrating)`
@@ -378,3 +382,29 @@ const compiled = baseCompile(template, finalOptions)
 该函数的作用就是执行nodeOps.insertBefore或nodeOps.appendChild给parent上插入elm，只是dom操作
 - `function createChildren (vnode, children, insertedVnodeQueue)`
 判断children是否是数组，如果是则遍历`children`调用`createElm(children[i], insertedVnodeQueue, vnode.elm, null, true);`即进行了逐层递归操作执行`createElm`
+- `function createComponent (vnode, insertedVnodeQueue, parentElm, refElm)`
+  1. 注意这里是`createPatchFunction`中声明的方法，`createElm`内部在调用`createComponent`时应该注意函数的作用域链，优先调用内部的`createComponent`
+  2. 这里使用了 `i.hook` 和 `i.init`, 全局的 `createComponent`(构建组件`vnode`) 中的 `mergeHooks(data)`，具体的再看看全局的createComponent，我们在_createElement中对tag进行了分条件处理，如是html/svg的字符串、对象组件等
+  3. 这里的`data`是创建组件的时候穿进去的 `data`，详见`vue`文档
+  ```javascript
+  function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+    var i = vnode.data;
+    if (isDef(i)) {
+      var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
+      if (isDef(i = i.hook) && isDef(i = i.init)) {
+        i(vnode, false /* hydrating */, parentElm, refElm);
+      }
+      // after calling the init hook, if the vnode is a child component
+      // it should've created a child instance and mounted it. the child
+      // component also has set the placeholder vnode's elm.
+      // in that case we can just return the element and be done.
+      if (isDef(vnode.componentInstance)) {
+        initComponent(vnode, insertedVnodeQueue);
+        if (isTrue(isReactivated)) {
+          reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm);
+        }
+        return true
+      }
+    }
+  }
+  ```
