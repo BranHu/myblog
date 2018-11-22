@@ -272,6 +272,109 @@ const compiled = baseCompile(template, finalOptions)
   ```
   <br/>
 - `vm.__patch__(vm.$el, vnode, hydrating, false, vm.$options._parentElm, vm.$options._refElm)`
-    1. Vue.prototype.__patch__ = inBrowser ? patch : noop; 给vue的原型上添加__patch__方法，为全局变量patch
-    2. var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules }); patch为createPatchFunction
-- `function createPatchFunction (backend) `
+  1. `Vue.prototype.__patch__ = inBrowser ? patch : noop; `给`vue`的原型上添加`__patch__`方法，为全局变量`patch`
+  2. `var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules }); `，`patch`为`createPatchFunction`
+  3. `nodeOps` 和 `modules` 都是全局变量，`nodeOps`组装了js中操作`dom`的方法，`modules`中是一些共用的模块
+  ```javascript
+  // 这里freeze的object的属性都是封装了js中操作dom的一些方法, 可以看后面
+  var nodeOps = Object.freeze({
+    createElement: createElement$1,
+    createElementNS: createElementNS,
+    createTextNode: createTextNode,
+    createComment: createComment,
+    insertBefore: insertBefore,
+    removeChild: removeChild,
+    appendChild: appendChild,
+    parentNode: parentNode,
+    nextSibling: nextSibling,
+    tagName: tagName,
+    setTextContent: setTextContent,
+    setAttribute: setAttribute
+  });
+  
+  var platformModules = [
+    attrs,
+    klass,
+    events,
+    domProps,
+    style,
+    transition
+  ];
+
+  var baseModules = [
+    ref,
+    directives
+  ];
+
+  // the directive module should be applied last, after all
+  // built-in modules have been applied.
+  var modules = platformModules.concat(baseModules);
+  ```
+- `function createPatchFunction (backend)`
+  1. 该函数内部声明了一些函数，如`updateChildren, createElm, createComponent, insert`等，最后返回`function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm)`, 那么我们在给全局变量 patch 赋值的时候`var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });`，实际上是将内部的`function patch` 赋值给了全局`patch`，继而赋值给了 `__patch__`
+  2. 这段代码的作用后续补充
+  ```JavaScript
+  // 全局的hooks
+  var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
+  for (i = 0; i < hooks.length; ++i) {
+    cbs[hooks[i]] = [];
+    for (j = 0; j < modules.length; ++j) {
+      if (isDef(modules[j][hooks[i]])) {
+        cbs[hooks[i]].push(modules[j][hooks[i]]);
+      }
+    }
+  }
+  ```
+- `function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm)`
+  1. 该函数是 `function createPatchFunction (backend)` 的返回值
+  2. 初始化的时候执行的是`vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false,vm.$options._parentElm,vm.$options._refElm);`即`vm.$el = patch(vm.$el, vnode, hydrating, false, vm.$options._parentElm, vm.$options._refElm);`
+  3. `if (isUndef(oldVnode)) { } else { } `，注意初始化的时候 `oldVnode` 为 `vm.$el`，为`mount`时的真实`dom`，因此不会走这个分支会走 `else` 分支
+  4. `var isRealElement = isDef(oldVnode.nodeType);` isDef 的作用是判断是否为 `undefined` 或 `null`，为`undefined `或` null`返回`false`，其他的为`true`，初始化的时候`oldVnode.nodeType`为`1`，即`isRealElement`为`true`
+  5. `if (!isRealElement && sameVnode(oldVnode, vnode)) {} else {}` ，初始化的时候`isRealElement`为`true`因此会走`else`分支，`oldVnode = emptyNodeAt(oldVnode);`将`oldVnode`这个真实`dom`创建一个空`vnode`
+  6. `var oldElm = oldVnode.elm;`初始化的时候oldVnode.elm就是mount的#app这个div，`var parentElm$1 = nodeOps.parentNode(oldElm);`，找到他的父节点赋值给 parentElm$1，然后执行createElm（）
+  ```javascript
+  // replacing existing element  将原来的旧节点dom提取出来，为后面替换做准备
+  var oldElm = oldVnode.elm;
+  var parentElm$1 = nodeOps.parentNode(oldElm);
+  // create new node  创建新的节点并插入到旧节点的父节点下
+  createElm(
+    vnode,
+    insertedVnodeQueue,
+    oldElm._leaveCb ? null : parentElm$1,  // 插入的父节点
+    nodeOps.nextSibling(oldElm)  // 旧节点的下一个同胞节点
+  );
+  ```
+- `function createElm (vnode, insertedVnodeQueue, parentElm, refElm, nested)`作用是依据将入参`vnode`转换成真实的`dom`并挂载在`parentElm`上
+  1. `if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {return}`，这里调用的是`createPatchFunction`内的 `createComponent `注意函数的作用域链，在上方，其作用是判断 vnode 是否为组件，如果是组件vnode, 则直接进入下面的if分支然后退出函数运行
+  2. 如果是非组件，`var data = vnode.data;var children = vnode.children;var tag = vnode.tag;`，将`vnode.data`和`children`和`tag`取出，然后依据条件执行，一般有`dom`的情况，`comment`的情况，文本的情况，主要还是通过`insert`函数插入不同类型的`node`，如果`vnode`还有`children`属性，还要调用`createChildren`方法
+  ```javascript
+  if (isDef(tag)) {
+    vnode.elm = vnode.ns
+      ? nodeOps.createElementNS(vnode.ns, tag)
+      : nodeOps.createElement(tag, vnode);
+    setScope(vnode);
+
+    /* istanbul ignore if */
+    {
+      createChildren(vnode, children, insertedVnodeQueue);
+      if (isDef(data)) {
+        invokeCreateHooks(vnode, insertedVnodeQueue);
+      }
+      insert(parentElm, vnode.elm, refElm);
+    }
+
+    if ("development" !== 'production' && data && data.pre) {
+      creatingElmInVPre--;
+    }
+  } else if (isTrue(vnode.isComment)) {
+    vnode.elm = nodeOps.createComment(vnode.text);
+    insert(parentElm, vnode.elm, refElm);
+  } else {
+    vnode.elm = nodeOps.createTextNode(vnode.text);
+    insert(parentElm, vnode.elm, refElm);
+  }
+  ```
+- `function insert (parent, elm, ref$$1)`
+该函数的作用就是执行nodeOps.insertBefore或nodeOps.appendChild给parent上插入elm，只是dom操作
+- `function createChildren (vnode, children, insertedVnodeQueue)`
+判断children是否是数组，如果是则遍历`children`调用`createElm(children[i], insertedVnodeQueue, vnode.elm, null, true);`即进行了逐层递归操作执行`createElm`
