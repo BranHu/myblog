@@ -23,32 +23,6 @@
   - [store](#store)
   - [view](#view)
 
-
-### nextTick
-* dom渲染后再触发，比较适合取dom的操作, this.$nextTick(fn)
-* 入参是一个回调函数
-
-### set
-* 通过手动给data属性添加值
-* 如果是component的方式，一般是vm.$set
-* 如果是single component的话，是this.$set
-* 注意转换方式  vm转成this
-
-### keep-alive
-* keep alive在router-view来回切换跳转的时候会保留数据，但是一般从体验上还是建议不要使用keep alive
-
-### mixin
-* mixin的意思是拼装，mixin是一个对象json，里面可写上vue中的各种属性如props，created等等，然后在vue组件中中通过mixin属性直接引用到这个vue组件中作为补充
-
-### 组件的合理应用props
-* 如果props是一个boolean值，可以不用赋初值，vue会自动识别，如果父组件添加了这个则子组件获得的就是true，如果没添加则是false
-* props还可以传递函数function，在子组件运用的时候直接 *this.函数();* 就可以调用了
-
-### parent和children
-* $children是在父组件中访问子组件的组件的
-* $parent是在子组件中访问父组件的
-* 可以通过 console.log(this) 查看$children 和 $parent
-
 ### render函数
 * render是一个函数
 * render的入参是一个函数，原名是createElement，一般用h代替
@@ -405,6 +379,60 @@ const compiled = baseCompile(template, finalOptions)
         }
         return true
       }
+    }
+  }
+  ```
+  
+  
+- init钩子
+  1. `options`中的`_isComponent`为`true`
+  2. `options`中的`parent`为`activeInstance`，这里的`activeInstance`为全局变量，是在`_update`的时候赋值的，`var prevActiveInstance = activeInstance;activeInstance = vm;`，即`activeInstance`就为当前的vm实例，如果是在首次初始化（main.js中）的时候就为那个时候的vue实例，可以理解为App组件的父实例
+  3. options中的`_parentVnode`为`vnode`，在初始化的时候为
+  ```javascript
+  var vnode = new VNode(
+    ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
+    data, undefined, undefined, undefined, context,
+    { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },
+    asyncFactory
+  );
+  ```
+  4. options中的`_parentElm`为`vm.$options._parentElm`，在初始化的时候为`null`
+  5. options中的`_refElm`为`vm.$options._refElm`，在初始化的时e候为`null`
+- `new Vue`这里就需要回到查看`Vue`的构造函数了，即`Vue`的初始化`_init`函数
+因为`options._isComponent`为true，因此会走到`initInternalComponent(vm, options)`这个分支，注意这里的vm就为后面通过`createComponentInstanceForVnode`函数创建的Vue的子类实例
+  ```javascript
+  var vm = this;
+  if (options && options._isComponent) {
+    initInternalComponent(vm, options);  // 如果是组件渲染的时候走进去了这个分支
+  } else {
+    vm.$options = mergeOptions(
+      resolveConstructorOptions(vm.constructor), // constructor只有实例对象有，指向是的对象的构造函数
+      options || {},
+      vm
+    );                                          //  最后merge的options是挂载在$options上的
+  }
+  ```
+- initInternalComponent(vm, options);
+  ```javascript
+  function initInternalComponent (vm, options) {  // 注意这里的入参vm传入的是子类vue的实例，不是父实例，父实例在options的parent属性上
+    var opts = vm.$options = Object.create(vm.constructor.options);
+    // doing this because it's faster than dynamic enumeration.
+    var parentVnode = options._parentVnode; // 创建的组件虚拟node
+    opts.parent = options.parent; // 父实例
+    opts._parentVnode = parentVnode; // 创建的组件虚拟node
+    opts._parentElm = options._parentElm; // 初始化的时候为null
+    opts._refElm = options._refElm; // 初始化的时候为null
+    
+    // componentOptions 为 { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children }
+    var vnodeComponentOptions = parentVnode.componentOptions; 
+    opts.propsData = vnodeComponentOptions.propsData;
+    opts._parentListeners = vnodeComponentOptions.listeners;
+    opts._renderChildren = vnodeComponentOptions.children;
+    opts._componentTag = vnodeComponentOptions.tag;
+
+    if (options.render) {
+      opts.render = options.render;
+      opts.staticRenderFns = options.staticRenderFns;
     }
   }
   ```
